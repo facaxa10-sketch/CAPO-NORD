@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<a href="guida_tappe.html" style="display:inline-block;padding:10px 18px;border-radius:999px;border:1px solid #6FD3E7;color:#6FD3E7;text-decoration:none;font-weight:600">Guida alle tappe: cosa vedere e dove mangiare →</a>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capo Nord & Giro di Finlandia — Roadbook interattivo 2026</title>
+<meta name="description" content="Pianificatore interattivo del viaggio in moto Torino → Capo Nord → Finlandia → Torino. Mappa reale, budget dinamico, carburante, tappe, meteo e checklist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" referrerpolicy="no-referrer">
+<style>
+:root{
+  --bg:#0A1622; --bg2:#0E2033; --card:#122740; --card2:#16304C;
+  --line:#1E3A54; --line2:#274863;
+  --ink:#EAF3FA; --dim:#9DB4CA; --faint:#5E7891;
+  --aurora:#34E5A8; --teal:#23B3C9; --sun:#F6B44C; --tent:#E8815A; --cold:#7FC8E8;
+  --display:'Space Grotesk',system-ui,sans-serif;
+  --body:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'Space Mono',ui-monospace,'SFMono-Regular',monospace;
+  --maxw:1140px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg); color:var(--ink); font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.06; letter-spacing:-.01em}
+a{color:inherit}
+.mono{font-family:var(--mono)}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+
+header.nav{position:sticky; top:0; z-index:1000; backdrop-filter:blur(12px); background:rgba(10,22,34,.85); border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--maxw); margin:0 auto; padding:12px 22px; display:flex; align-items:center; gap:20px}
+.brand{font-family:var(--mono); font-weight:700; font-size:14px; letter-spacing:.02em; white-space:nowrap}
+.brand b{color:var(--aurora)}
+.nav-links{margin-left:auto; display:flex; gap:2px; flex-wrap:wrap}
+.nav-links a{font-size:13px; color:var(--dim); text-decoration:none; padding:7px 11px; border-radius:8px; transition:.2s}
+.nav-links a:hover{color:var(--ink); background:var(--card)}
+
+.hero{position:relative; overflow:hidden; border-bottom:1px solid var(--line)}
+.aurora-band{position:absolute; inset:-40% 0 auto 0; height:60%; pointer-events:none; opacity:.55;
+  background:radial-gradient(60% 80% at 20% 100%, rgba(52,229,168,.30), transparent 70%),radial-gradient(50% 70% at 70% 100%, rgba(35,179,201,.28), transparent 70%),radial-gradient(40% 60% at 90% 90%, rgba(246,180,76,.14), transparent 70%);
+  filter:blur(6px); animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translateX(-4%)}to{transform:translateX(4%) translateY(-3%)}}
+.hero-in{max-width:var(--maxw); margin:0 auto; padding:60px 22px 44px; position:relative}
+.eyebrow{font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--aurora)}
+.hero h1{font-size:clamp(38px,7vw,74px); font-weight:700; margin:14px 0 6px}
+.hero h1 .n{color:var(--sun)}
+.hero .sub{color:var(--dim); font-size:clamp(15px,2.2vw,19px); max-width:660px}
+.lat-tag{display:inline-flex; align-items:baseline; gap:8px; margin-top:22px; padding:10px 16px; border:1px solid var(--line2); border-radius:12px; background:linear-gradient(180deg,var(--card),transparent)}
+.lat-tag .big{font-family:var(--mono); font-weight:700; font-size:26px; color:var(--sun)}
+.lat-tag .lbl{font-size:13px; color:var(--dim)}
+
+section{padding:54px 0; border-bottom:1px solid var(--line)}
+.sec-head{display:flex; align-items:flex-end; gap:16px; margin-bottom:24px; flex-wrap:wrap}
+.sec-num{font-family:var(--mono); font-size:13px; color:var(--faint)}
+.sec-head h2{font-size:clamp(26px,4vw,38px)}
+.sec-head p{color:var(--dim); font-size:15px; max-width:520px; margin-left:auto}
+
+/* dashboard */
+.dash{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+.stat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px}
+.stat .v{font-family:var(--mono); font-weight:700; font-size:clamp(20px,3vw,27px); color:var(--aurora)}
+.stat .v.sun{color:var(--sun)}
+.stat .k{font-size:12px; color:var(--dim); margin-top:3px}
+
+/* params */
+.panel{background:var(--card); border:1px solid var(--line2); border-radius:16px; padding:20px 22px}
+.panel-h{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.panel-h h3{font-size:17px}
+.panel-h .ic{color:var(--aurora)}
+.params{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px 16px}
+.pfield label{display:block; font-size:12px; color:var(--dim); margin-bottom:6px}
+.pfield .inp{display:flex; align-items:center; background:var(--bg2); border:1px solid var(--line); border-radius:10px; overflow:hidden}
+.pfield input{width:100%; background:none; border:none; color:var(--ink); font-family:var(--mono); font-weight:700; font-size:15px; padding:9px 10px; outline:none}
+.pfield input:focus{background:rgba(52,229,168,.06)}
+.pfield .u{font-family:var(--mono); font-size:12px; color:var(--faint); padding-right:10px; white-space:nowrap}
+.reset{margin-left:auto; background:none; border:1px solid var(--line2); color:var(--dim); font-family:var(--body); font-size:12px; padding:6px 12px; border-radius:8px; cursor:pointer}
+.reset:hover{color:var(--ink); border-color:var(--aurora)}
+
+/* map */
+#map{height:540px; width:100%; border-radius:16px; border:1px solid var(--line2); z-index:1; position:relative; background:var(--bg2)}
+.map-fallback{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; color:var(--dim); font-size:14px; padding:30px}
+.map-tools{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; align-items:center}
+.seg{display:inline-flex; background:var(--card); border:1px solid var(--line); border-radius:11px; overflow:hidden}
+.seg button{background:none; border:none; color:var(--dim); font-family:var(--body); font-size:13.5px; padding:9px 15px; cursor:pointer; transition:.18s}
+.seg button.on{background:var(--aurora); color:#06231a; font-weight:600}
+.seg button:not(.on):hover{color:var(--ink)}
+.toggle{background:var(--card); border:1px solid var(--line); color:var(--dim); border-radius:11px; padding:9px 15px; font-size:13.5px; cursor:pointer; font-family:var(--body)}
+.toggle.on{border-color:var(--sun); color:var(--sun)}
+.route-status{font-family:var(--mono); font-size:12px; color:var(--faint); margin-left:auto}
+.legend{display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; font-size:13px; color:var(--dim)}
+.legend i{display:inline-block; width:20px; height:0; border-top:3px solid; vertical-align:middle; margin-right:7px; border-radius:3px}
+.legend .dot{width:11px; height:11px; border-radius:50%; vertical-align:middle; margin-right:7px; display:inline-block}
+.leaflet-popup-content-wrapper{background:var(--card2); color:var(--ink); border-radius:12px; border:1px solid var(--line2)}
+.leaflet-popup-tip{background:var(--card2)}
+.leaflet-popup-content{margin:12px 14px; font-family:var(--body)}
+.leaflet-container a.leaflet-popup-close-button{color:var(--dim)}
+.pop-t{font-family:var(--display); font-weight:600; font-size:15px}
+.pop-m{font-family:var(--mono); font-size:12px; color:var(--aurora); margin-top:2px}
+.pop-s{font-size:12.5px; color:var(--dim); margin-top:5px}
+.leaflet-bar a{background:var(--card2); color:var(--ink); border-bottom-color:var(--line)}
+.leaflet-bar a:hover{background:var(--card)}
+
+/* charts */
+.charts{display:grid; grid-template-columns:1fr; gap:26px}
+.chart-box{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px}
+.chart-box h3{font-size:17px; margin-bottom:4px}
+.chart-box .cap{font-size:12.5px; color:var(--dim); margin-bottom:14px}
+.chart-box svg{display:block; width:100%; height:auto; overflow:visible}
+.tipbox{position:fixed; pointer-events:none; background:var(--card2); border:1px solid var(--line2); border-radius:9px; padding:8px 11px; font-size:12px; z-index:2000; opacity:0; transition:opacity .12s; box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.tipbox b{font-family:var(--mono); color:var(--aurora)}
+
+/* roadbook */
+.phase{display:flex; align-items:center; gap:14px; margin:32px 0 18px}
+.phase:first-child{margin-top:0}
+.phase .tag{font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; padding:6px 12px; border-radius:20px; border:1px solid var(--line2)}
+.phase.up .tag{color:var(--aurora)} .phase.down .tag{color:var(--sun)}
+.phase .rule{flex:1; height:1px; background:var(--line)}
+.filters{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px}
+.filters button{background:var(--card); border:1px solid var(--line); color:var(--dim); border-radius:20px; padding:8px 15px; font-size:13px; cursor:pointer; transition:.18s; font-family:var(--body)}
+.filters button.on{border-color:var(--aurora); color:var(--aurora)}
+.filters button:hover{color:var(--ink)}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:18px}
+.day{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; display:flex; gap:16px; transition:.2s; position:relative}
+.day:hover{border-color:var(--line2); transform:translateY(-2px)}
+.day.rest{opacity:.85}
+.day .thumb{flex:0 0 88px}
+.day .thumb svg{display:block; width:88px; height:120px; background:var(--bg2); border-radius:10px; border:1px solid var(--line)}
+.day .body{flex:1; min-width:0}
+.d-top{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
+.d-date{font-family:var(--mono); font-size:12px; color:var(--faint)}
+.d-lat{font-family:var(--mono); font-size:11.5px; color:var(--sun); white-space:nowrap}
+.d-route{font-family:var(--display); font-weight:600; font-size:17px; margin:4px 0 2px; line-height:1.15}
+.d-country{font-family:var(--mono); font-size:11px; color:var(--dim); letter-spacing:.03em}
+.d-metrics{display:flex; gap:14px; margin:11px 0 4px; flex-wrap:wrap}
+.d-metrics span{font-size:12.5px; color:var(--dim)}
+.d-metrics b{font-family:var(--mono); color:var(--ink); font-weight:700}
+.chips{display:flex; gap:7px; flex-wrap:wrap; margin-top:9px}
+.chip{display:inline-flex; align-items:center; gap:5px; font-size:11px; font-family:var(--mono); padding:4px 9px; border-radius:20px; border:1px solid var(--line2); color:var(--dim)}
+.chip.casa{color:var(--aurora); border-color:rgba(52,229,168,.3)}
+.chip.tenda{color:var(--tent); border-color:rgba(232,129,90,.35)}
+.chip.sosta{color:var(--dim)}
+.chip.wx{color:var(--cold); border-color:rgba(127,200,232,.3)}
+.chip.fuel{color:var(--sun); border-color:rgba(246,180,76,.3)}
+.d-note{font-size:12.5px; color:var(--sun); margin-top:9px; line-height:1.4}
+.d-actions{display:flex; gap:8px; margin-top:13px; flex-wrap:wrap}
+.d-actions a,.d-actions button{font-size:12px; font-family:var(--body); text-decoration:none; cursor:pointer; padding:7px 11px; border-radius:9px; border:1px solid var(--line2); background:none; color:var(--dim); transition:.18s; display:inline-flex; align-items:center; gap:5px}
+.d-actions a:hover,.d-actions button:hover{color:var(--ink); border-color:var(--aurora)}
+.d-actions .gm{color:var(--teal)}
+
+/* poi */
+.poi-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px}
+.poi-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px}
+.poi-card h3{font-size:19px; display:flex; align-items:center; gap:9px}
+.poi-card h3 .pin{color:var(--aurora); font-size:14px}
+.poi-card ul{list-style:none; margin-top:12px; display:flex; flex-direction:column; gap:8px}
+.poi-card li{font-size:13.5px; color:var(--dim); display:flex; justify-content:space-between; gap:10px; padding-bottom:8px; border-bottom:1px dashed var(--line)}
+.poi-card li:last-child{border-bottom:none}
+.poi-card li .pr{font-family:var(--mono); font-size:11.5px; color:var(--sun); white-space:nowrap}
+.poi-card li .free{color:var(--aurora)}
+
+/* fuel + budget */
+.fuel-wrap{display:grid; grid-template-columns:1.25fr 1fr; gap:26px; align-items:start}
+.f-table{background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden}
+.f-row{display:grid; grid-template-columns:1fr auto; gap:10px; padding:12px 18px; align-items:center; border-bottom:1px solid var(--line)}
+.f-row:last-child{border-bottom:none}
+.f-row.head{background:var(--bg2); font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint)}
+.f-c{font-weight:500; font-size:14px}
+.f-c small{display:block; color:var(--faint); font-size:11.5px; font-weight:400; margin-top:2px}
+.f-bar{height:6px; border-radius:4px; margin-top:6px; background:linear-gradient(90deg,var(--aurora),var(--sun)); transition:width .25s}
+.f-price-in{display:flex; align-items:center; background:var(--bg2); border:1px solid var(--line); border-radius:9px; overflow:hidden}
+.f-price-in input{width:58px; background:none; border:none; color:var(--sun); font-family:var(--mono); font-weight:700; font-size:15px; text-align:right; padding:7px 4px 7px 8px; outline:none}
+.f-price-in .u{font-family:var(--mono); font-size:10.5px; color:var(--faint); padding-right:8px}
+.budget{background:var(--card); border:1px solid var(--line2); border-radius:16px; padding:22px; position:sticky; top:76px}
+.budget h3{font-size:18px; margin-bottom:14px}
+.b-line{display:flex; justify-content:space-between; font-size:13.5px; margin-bottom:11px; color:var(--dim); gap:10px}
+.b-line b{font-family:var(--mono); color:var(--ink); font-weight:700; white-space:nowrap}
+.b-line small{color:var(--faint); font-size:11px}
+.b-sep{border-top:1px solid var(--line); margin:6px 0 14px}
+.b-total{display:flex; justify-content:space-between; align-items:baseline; font-size:14px; color:var(--ink); margin-bottom:9px}
+.b-total b{font-family:var(--mono); color:var(--aurora); font-size:22px}
+.b-total.pp b{color:var(--sun)}
+.budget .note{font-size:11.5px; color:var(--faint); margin-top:14px; line-height:1.5}
+
+/* tips */
+.tips{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px}
+.tip{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px}
+.tip h4{font-size:16px; color:var(--aurora); margin-bottom:8px; display:flex; align-items:center; gap:9px}
+.tip.road h4{color:var(--sun)}
+.tip p{font-size:13.5px; color:var(--dim)}
+.tip .ic{font-size:19px}
+
+/* checklist */
+.check-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px}
+.check-cat{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px}
+.check-cat h4{font-size:15px; margin-bottom:12px; display:flex; align-items:center; gap:8px}
+.check-cat h4 .ic{font-size:17px}
+.check-item{display:flex; align-items:center; gap:10px; padding:6px 0; font-size:13.5px; color:var(--dim); cursor:pointer; user-select:none}
+.check-item input{appearance:none; width:17px; height:17px; border:1.5px solid var(--line2); border-radius:5px; cursor:pointer; flex:0 0 auto; position:relative; transition:.15s}
+.check-item input:checked{background:var(--aurora); border-color:var(--aurora)}
+.check-item input:checked::after{content:'✓'; position:absolute; inset:0; color:#06231a; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center}
+.check-item input:checked + span{color:var(--faint); text-decoration:line-through}
+.check-progress{display:flex; align-items:center; gap:12px; margin-bottom:20px}
+.check-bar{flex:1; height:8px; background:var(--card); border:1px solid var(--line); border-radius:6px; overflow:hidden}
+.check-bar span{display:block; height:100%; background:linear-gradient(90deg,var(--aurora),var(--teal)); width:0; transition:width .3s}
+.check-pct{font-family:var(--mono); font-weight:700; color:var(--aurora); font-size:15px}
+
+footer{padding:40px 0 60px; text-align:center; color:var(--faint); font-size:13px}
+footer .mono{color:var(--dim)}
+footer a{color:var(--aurora); text-decoration:none}
+
+@media(max-width:860px){
+  .dash{grid-template-columns:repeat(2,1fr)}
+  .fuel-wrap{grid-template-columns:1fr}
+  .budget{position:static}
+  .sec-head p{margin-left:0}
+  .nav-links{display:none}
+}
+@media(prefers-reduced-motion:reduce){ .aurora-band{animation:none} html{scroll-behavior:auto} .day{transition:none} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <div class="brand">CAPO<b>NORD</b> · 71°N</div>
+    <nav class="nav-links">
+      <a href="#parametri">Parametri</a>
+      <a href="#mappa">Mappa</a>
+      <a href="#grafici">Grafici</a>
+      <a href="#roadbook">Roadbook</a>
+      <a href="#vedere">Cosa vedere</a>
+      <a href="#budget">Budget</a>
+      <a href="#valigia">Valigia</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="aurora-band"></div>
+  <div class="hero-in">
+    <div class="eyebrow">Viaggio in moto · 29 ago → 20 set 2026</div>
+    <h1>Capo Nord <span class="n">&</span> Giro di Finlandia</h1>
+    <p class="sub">Da Torino al punto più a nord d'Europa e ritorno, attraverso 11 paesi, fiordi, Lofoten e Lapponia. Roadbook interattivo: cambia i parametri e tutto si aggiorna in tempo reale.</p>
+    <div class="lat-tag"><span class="big">71°10′N</span><span class="lbl">Nordkapp — il traguardo, 10 settembre</span></div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section id="parametri">
+    <div class="sec-head">
+      <div><div class="sec-num">01 — Numeri</div><h2>Il viaggio in sintesi</h2></div>
+      <p>Regola i parametri qui sotto: consumo, veicoli, prezzi e costi si riflettono su carburante e budget più in basso.</p>
+    </div>
+    <div class="dash" id="dash"></div>
+
+    <div class="panel" style="margin-top:22px">
+      <div class="panel-h"><span class="ic">⚙︎</span><h3>Parametri modificabili</h3>
+        <button class="reset" id="resetParams">Ripristina valori</button></div>
+      <div class="params" id="params"></div>
+    </div>
+  </section>
+
+  <section id="mappa">
+    <div class="sec-head">
+      <div><div class="sec-num">02 — Percorso</div><h2>La mappa reale del giro</h2></div>
+      <p>Tracciato sulle strade reali. Clicca un punto per i dettagli o «Mappa» su una tappa per centrarla. Clicca la mappa per attivare lo zoom con la rotella.</p>
+    </div>
+    <div class="map-tools">
+      <div class="seg" id="routeSeg">
+        <button data-r="all" class="on">Intero giro</button>
+        <button data-r="up">Andata ↑</button>
+        <button data-r="down">Ritorno ↓</button>
+      </div>
+      <button class="toggle" id="poiToggle">◆ Punti d'interesse</button>
+      <span class="route-status" id="routeStatus">tracciato: caricamento…</span>
+    </div>
+    <div id="map"><div class="map-fallback">Caricamento mappa…<br>Se non compare, apri il file in un browser connesso a internet e ricarica.</div></div>
+    <div class="legend">
+      <span><i style="border-color:var(--aurora)"></i>Andata (Torino → Capo Nord)</span>
+      <span><i style="border-color:var(--sun); border-top-style:dashed"></i>Ritorno + traghetti</span>
+      <span><span class="dot" style="background:var(--sun)"></span>Capo Nord</span>
+      <span><span class="dot" style="background:var(--tent)"></span>Notte in tenda</span>
+    </div>
+  </section>
+
+  <section id="grafici">
+    <div class="sec-head">
+      <div><div class="sec-num">03 — Andamento</div><h2>Latitudine & distanze</h2></div>
+      <p>La salita verso 71°N giorno per giorno e i chilometri di ogni tappa. Passa il mouse per i dettagli.</p>
+    </div>
+    <div class="charts">
+      <div class="chart-box"><h3>Salita in latitudine</h3><div class="cap">Da 45°N (Torino) a 71°N (Capo Nord) e ritorno · linea del Circolo Polare Artico a 66,5°N</div><div id="latChart"></div></div>
+      <div class="chart-box"><h3>Chilometri per giorno</h3><div class="cap">Distanza di ogni tappa · in evidenza le più lunghe</div><div id="kmChart"></div></div>
+    </div>
+  </section>
+
+  <section id="roadbook">
+    <div class="sec-head">
+      <div><div class="sec-num">04 — Roadbook</div><h2>Giorno per giorno</h2></div>
+      <p>23 tappe con distanze, tempi, meteo medio di settembre, stima carburante e link a Google Maps. La stima ⛽ segue il consumo impostato.</p>
+    </div>
+    <div class="filters" id="filters">
+      <button data-f="all" class="on">Tutte</button>
+      <button data-f="drive">Tappe di guida</button>
+      <button data-f="tenda">Notti in tenda</button>
+      <button data-f="sosta">Giornate libere</button>
+    </div>
+    <div id="roadbookBody"></div>
+  </section>
+
+  <section id="vedere">
+    <div class="sec-head">
+      <div><div class="sec-num">05 — Tappe</div><h2>Cosa vedere</h2></div>
+      <p>Punti d'interesse città per città con i prezzi d'ingresso indicativi presi dal vostro programma.</p>
+    </div>
+    <div class="poi-grid" id="poiGrid"></div>
+  </section>
+
+  <section id="budget">
+    <div class="sec-head">
+      <div><div class="sec-num">06 — Costi</div><h2>Carburante & budget</h2></div>
+      <p>Prezzi benzina (Euro 95) a giugno 2026 — modificabili. Il budget totale si ricalcola da tutti i parametri.</p>
+    </div>
+    <div class="fuel-wrap">
+      <div class="f-table" id="fuelTable"></div>
+      <div class="budget">
+        <h3>Budget dinamico</h3>
+        <div class="b-line">Carburante <small id="bFuelSub"></small> <b id="bFuel">–</b></div>
+        <div class="b-line">Alloggi <small id="bLodgeSub"></small> <b id="bLodge">–</b></div>
+        <div class="b-line">Campeggio <small id="bCampSub"></small> <b id="bCamp">–</b></div>
+        <div class="b-line">Cibo <small id="bFoodSub"></small> <b id="bFood">–</b></div>
+        <div class="b-line">Traghetti <b id="bFerry">–</b></div>
+        <div class="b-line">Ponte Øresund <b id="bBridge">–</b></div>
+        <div class="b-line">Vignette / bolli <b id="bVign">–</b></div>
+        <div class="b-line">Pedaggi (AutoPASS) <b id="bToll">–</b></div>
+        <div class="b-sep"></div>
+        <div class="b-total"><span>Totale gruppo</span><b id="bTotal">–</b></div>
+        <div class="b-total pp"><span>A persona</span><b id="bPer">–</b></div>
+        <p class="note" id="bNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="consigli">
+    <div class="sec-head">
+      <div><div class="sec-num">07 — Sul campo</div><h2>Strade migliori & consigli</h2></div>
+      <p>Le tratte panoramiche e la logistica per un viaggio artico a settembre.</p>
+    </div>
+    <div class="tips" id="tipsGrid"></div>
+  </section>
+
+  <section id="valigia" style="border-bottom:none">
+    <div class="sec-head">
+      <div><div class="sec-num">08 — Preparazione</div><h2>Checklist bagagli</h2></div>
+      <p>Spunta cosa hai già preparato. La barra segue i progressi.</p>
+    </div>
+    <div class="check-progress"><div class="check-bar"><span id="checkFill"></span></div><span class="check-pct" id="checkPct">0%</span></div>
+    <div class="check-grid" id="checkGrid"></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="mono">TORINO ↔ NORDKAPP · 9.754 KM · 45°N → 71°N → 45°N</div>
+    <p style="margin-top:10px">Roadbook interattivo generato dal file di programma. Prezzi carburante giugno 2026 (bollettino UE / GlobalPetrolPrices) — modificabili e da riverificare su <a href="https://www.fuel-prices.eu/lang/it" target="_blank" rel="noopener">fuel-prices.eu</a>. Meteo = medie storiche di settembre, non previsioni.</p>
+  </div>
+</footer>
+
+<div class="tipbox" id="tipbox"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" referrerpolicy="no-referrer"></script>
+<script>
+/* ===================== DATI ===================== */
+const CO = {
+  Torino:[45.0703,7.6869,'Torino, Italia'], Zurigo:[47.3769,8.5417,'Zurigo, Svizzera'],
+  Stoccarda:[48.7758,9.1829,'Stuttgart, Germania'], Hannover:[52.3759,9.7320,'Hannover, Germania'],
+  Copenaghen:[55.6761,12.5683,'Copenhagen, Danimarca'], 'Göteborg':[57.7089,11.9746,'Göteborg, Svezia'],
+  Oslo:[59.9139,10.7522,'Oslo, Norvegia'], Stoccolma:[59.3293,18.0686,'Stoccolma, Svezia'],
+  'Umeå':[63.8258,20.2630,'Umeå, Svezia'], Jokkmokk:[66.6069,19.8261,'Jokkmokk, Svezia'],
+  Kiruna:[67.8558,20.2253,'Kiruna, Svezia'], Leknes:[68.1467,13.6117,'Leknes, Lofoten, Norvegia'],
+  Skibotn:[69.3900,20.2650,'Skibotn, Norvegia'], Nordkapp:[71.1709,25.7833,'Nordkapp, Norvegia'],
+  Muonio:[67.9578,23.6753,'Muonio, Finlandia'], Rovaniemi:[66.5039,25.7294,'Rovaniemi, Finlandia'],
+  'Jyväskylä':[62.2426,25.7473,'Jyväskylä, Finlandia'], Helsinki:[60.1699,24.9384,'Helsinki, Finlandia'],
+  Tallinn:[59.4370,24.7536,'Tallinn, Estonia'], Riga:[56.9496,24.1052,'Riga, Lettonia'],
+  Varsavia:[52.2297,21.0122,'Varsavia, Polonia'], Dresda:[51.0504,13.7373,'Dresda, Germania'],
+};
+const WX = { // medie storiche metà settembre [min,max] °C
+  Torino:[13,24], Stoccarda:[9,19], Hannover:[9,18], Dresda:[9,18], Copenaghen:[10,17],
+  Oslo:[8,16], Stoccolma:[8,15], 'Umeå':[3,11], Kiruna:[1,9], Leknes:[6,12], Skibotn:[3,10],
+  Nordkapp:[1,7], Muonio:[0,9], Rovaniemi:[1,10], 'Jyväskylä':[5,13], Helsinki:[7,14],
+  Riga:[8,16], Varsavia:[9,17],
+};
+const DAYS = [
+ {n:1,date:'sab 29 ago',from:'Torino',to:'Stoccarda',via:'Zurigo',km:591,h:7,t:'06:00–15:00',stay:'casa',lat:48.78,co:'IT · CH · DE'},
+ {n:2,date:'dom 30 ago',from:'Stoccarda',to:'Hannover',km:511,h:6,t:'10:00–17:00',stay:'casa',lat:52.38,co:'DE'},
+ {n:3,date:'lun 31 ago',from:'Hannover',to:'Copenaghen',km:476,h:7,t:'10:00–17:00',stay:'casa',lat:55.68,co:'DE · DK'},
+ {n:4,date:'mar 1 set',from:'Copenaghen',to:'Copenaghen',km:0,stay:'sosta',lat:55.68,co:'DK',note:'Giornata libera a Copenaghen'},
+ {n:5,date:'mer 2 set',from:'Copenaghen',to:'Oslo',via:'Göteborg',km:608,h:7,t:'09:00–17:00',stay:'casa',lat:59.91,co:'DK · SE · NO'},
+ {n:6,date:'gio 3 set',from:'Oslo',to:'Oslo',km:0,stay:'sosta',lat:59.91,co:'NO',note:'Giornata libera a Oslo'},
+ {n:7,date:'ven 4 set',from:'Oslo',to:'Stoccolma',km:525,h:7,t:'09:00–17:00',stay:'casa',lat:59.33,co:'NO · SE'},
+ {n:8,date:'sab 5 set',from:'Stoccolma',to:'Stoccolma',km:0,stay:'sosta',lat:59.33,co:'SE',note:'Giornata libera a Stoccolma'},
+ {n:9,date:'dom 6 set',from:'Stoccolma',to:'Umeå',km:635,h:7.5,t:'09:00–17:00',stay:'casa',lat:63.83,co:'SE'},
+ {n:10,date:'lun 7 set',from:'Umeå',to:'Kiruna',via:'Jokkmokk',km:611,h:8,t:'07:00–16:00',stay:'casa',lat:67.86,co:'SE'},
+ {n:11,date:'mar 8 set',from:'Kiruna',to:'Leknes',km:458,h:7,t:'09:00–17:00',stay:'casa',lat:68.15,co:'SE · NO',note:'Isole Lofoten · Nusfjord e Henningsvær'},
+ {n:12,date:'mer 9 set',from:'Leknes',to:'Skibotn',km:475,h:8,t:'10:00–18:00',stay:'tenda',lat:69.39,co:'NO'},
+ {n:13,date:'gio 10 set',from:'Skibotn',to:'Nordkapp',km:498,h:8,t:'10:00–18:00',stay:'tenda',lat:71.17,co:'NO',note:'⭐ Capo Nord · 71°10′N — punto più a nord del viaggio'},
+ {n:14,date:'ven 11 set',from:'Nordkapp',to:'Muonio',km:519,h:7,stay:'casa',lat:67.96,co:'NO · FI'},
+ {n:15,date:'sab 12 set',from:'Muonio',to:'Rovaniemi',km:229,h:3,t:'08:00–12:00',stay:'casa',lat:66.50,co:'FI',note:'Circolo Polare Artico · villaggio di Rovaniemi'},
+ {n:16,date:'dom 13 set',from:'Rovaniemi',to:'Jyväskylä',km:559,h:7,t:'11:00–18:00',stay:'casa',lat:62.24,co:'FI'},
+ {n:17,date:'lun 14 set',from:'Jyväskylä',to:'Helsinki',km:269,h:4,t:'10:00–14:00',stay:'casa',lat:60.17,co:'FI'},
+ {n:18,date:'mar 15 set',from:'Helsinki',to:'Helsinki',km:0,stay:'sosta',lat:60.17,co:'FI',note:'Giornata libera a Helsinki'},
+ {n:19,date:'mer 16 set',from:'Helsinki',to:'Riga',via:'Tallinn',km:400,h:7,t:'09:00–17:00',stay:'casa',lat:56.95,co:'FI · EE · LV',note:'Traghetto Helsinki–Tallinn, poi strada per Riga'},
+ {n:20,date:'gio 17 set',from:'Riga',to:'Varsavia',km:670,h:8,t:'10:00–18:00',stay:'casa',lat:52.23,co:'LV · LT · PL'},
+ {n:21,date:'ven 18 set',from:'Varsavia',to:'Dresda',km:621,h:7,t:'11:00–18:00',stay:'casa',lat:51.05,co:'PL · DE'},
+ {n:22,date:'sab 19 set',from:'Dresda',to:'Stoccarda',km:508,h:6,t:'12:00–18:00',stay:'casa',lat:48.78,co:'DE'},
+ {n:23,date:'dom 20 set',from:'Stoccarda',to:'Torino',km:591,h:7,t:'10:00–17:00',stay:'casa',lat:45.07,co:'DE · CH · IT'},
+];
+const FULLSEQ=['Torino','Zurigo','Stoccarda','Hannover','Copenaghen','Göteborg','Oslo','Stoccolma','Umeå','Jokkmokk','Kiruna','Leknes','Skibotn','Nordkapp','Muonio','Rovaniemi','Jyväskylä','Helsinki','Tallinn','Riga','Varsavia','Dresda','Stoccarda','Torino'];
+const STOPS_UP=['Torino','Stoccarda','Hannover','Copenaghen','Oslo','Stoccolma','Umeå','Kiruna','Leknes','Skibotn','Nordkapp'];
+const DOWN_LAND1=['Nordkapp','Muonio','Rovaniemi','Jyväskylä','Helsinki'];
+const DOWN_LAND2=['Tallinn','Riga','Varsavia','Dresda','Stoccarda','Torino'];
+const STOPS_DOWN=['Nordkapp','Muonio','Rovaniemi','Jyväskylä','Helsinki','Riga','Varsavia','Dresda','Stoccarda','Torino'];
+
+const POI=[
+ {city:'Stoccarda',items:[['Museo Mercedes-Benz','16 €'],['Museo Porsche','12 €'],['Weissenhofsiedlung',''],['Schlossplatz','']]},
+ {city:'Hannover',items:[['Centro storico (Altstadt)','']]},
+ {city:'Copenaghen',items:[['Classic Car House','19 €'],['Palazzo di Amalienborg',''],['Biblioteca Reale «Diamante Nero»','gratis'],['Palazzo della Borsa (Børsen)',''],['Nyhavn',''],['Castello di Kronborg',''],['Chiesa di Grundtvig','']]},
+ {city:'Oslo',items:[['Museo Fram','16 €'],['Palazzo Reale',''],['Ekebergparken',''],['Monolito (Parco Vigeland)',''],['Mathallen (mercato)',''],['Forsvarsmuseet','14 €'],['Lungomare Aker Brygge','']]},
+ {city:'Stoccolma',items:[['Museo Vasa','19 €'],['Gamla Stan (città vecchia)',''],['Palazzo Reale',''],['Stortorget',''],['Mårten Trotzigs gränd',''],['Moderna Museet','15 €'],['Norrmalm & SoFo','']]},
+ {city:'Leknes',items:[['Lofotr Viking Museum',''],['Villaggio di Nusfjord',''],['Henningsvær','']]},
+ {city:'Helsinki',items:[['Chiesa nella roccia (Temppeliaukio)',''],['Monumento a Sibelius',''],['Biblioteca Oodi','gratis'],['Finlandia Hall',''],['Amos Rex',''],['Löyly Sauna',''],['Piazza del Senato','']]},
+];
+const FUEL=[
+ {c:'Polonia',price:1.38,km:1100,note:'Il più economico — fate il pieno qui'},
+ {c:'Svezia',price:1.54,km:2550,note:'Conveniente: pieno prima di Norvegia e Finlandia'},
+ {c:'Estonia',price:1.66,km:130,note:''},
+ {c:'Lituania',price:1.69,km:280,note:''},
+ {c:'Svizzera',price:1.79,km:150,note:'Vignetta ~40 CHF obbligatoria'},
+ {c:'Lettonia',price:1.80,km:270,note:''},
+ {c:'Italia',price:1.85,km:300,note:'Partenza e arrivo'},
+ {c:'Germania',price:1.87,km:1700,note:'Nessun pedaggio autostradale'},
+ {c:'Norvegia',price:2.00,km:1700,note:'Molto variabile · pagamento con carta'},
+ {c:'Finlandia',price:2.15,km:1354,note:'Tra i più cari'},
+ {c:'Danimarca',price:2.31,km:220,note:'Il più caro d\'Europa'},
+];
+const ROADS=[
+ {ic:'🛣️',t:'E10 «Kong Olavs veg» — Lofoten',p:'Forse la strada più bella del viaggio: ponti sull\'oceano, picchi a strapiombo e villaggi come Henningsvær e Nusfjord.',road:1},
+ {ic:'🧭',t:'E69 verso Capo Nord',p:'L\'ultimo tratto artico fino a 71°N, con il Nordkapptunnelen sottomarino (6,8 km) sotto il mare di Barents.',road:1},
+ {ic:'🏔️',t:'E6 · Kvænangsfjellet',p:'Tra Leknes e Skibotn: fiordi, gallerie e il passo di Kvænangsfjellet, spesso il primo assaggio di neve del viaggio.',road:1},
+ {ic:'🌲',t:'Entroterra svedese verso Kiruna',p:'Da Umeå a Jokkmokk e Kiruna: foreste e laghi a perdita d\'occhio, il vero silenzio della Lapponia.',road:1},
+ {ic:'🌉',t:'Ponte di Øresund',p:'Copenaghen → Malmö sospesi sul mare tra ponte e tunnel: uno dei collegamenti più spettacolari d\'Europa.',road:1},
+];
+const TIPS=[
+ {ic:'🌡️',t:'Meteo a 71°N a settembre',p:'A Capo Nord aspettatevi 1–7 °C, vento forte e possibile neve in quota. Servono strati tecnici, antipioggia e guanti invernali.'},
+ {ic:'🌌',t:'Aurora boreale',p:'Settembre è ottimo: notti già buie a nord del Circolo Polare. Controllate l\'indice Kp — le notti in tenda a Skibotn e Nordkapp sono perfette.'},
+ {ic:'⛽',t:'Rifornimento nell\'Artico',p:'Oltre il Circolo Polare i distributori sono radi. Regola d\'oro: non scendere mai sotto mezzo serbatoio.'},
+ {ic:'🚢',t:'Traghetti',p:'Prenotate in anticipo Helsinki–Tallinn (Tallink Silja / Viking Line). In alta stagione i posti moto finiscono.'},
+ {ic:'🅿️',t:'Pedaggi Norvegia (AutoPASS)',p:'Pedaggi automatici a lettura targa: registrate il veicolo su Epass24/EPC prima di partire per evitare maggiorazioni.'},
+ {ic:'⛺',t:'Notti in tenda',p:'A Skibotn e verso Nordkapp fa freddo: sacco a pelo comfort ≤ 0 °C e materassino isolante. In Norvegia vale il libero campeggio.'},
+];
+const CHECK=[
+ {ic:'📄',cat:'Documenti',items:['Patente + documento','Assicurazione + Carta Verde','Libretto di circolazione','Prenotazioni traghetti/alloggi','Contanti (NOK/SEK/DKK/PLN)']},
+ {ic:'🏍️',cat:'Moto',items:['Kit foratura + compressore','Catena e lucchetto','Olio e liquidi di scorta','Attrezzi base','Nastro e fascette','Lampadine di ricambio']},
+ {ic:'🧥',cat:'Abbigliamento',items:['Giacca + pantaloni impermeabili','Strati termici','Guanti invernali + estivi','Scaldacollo / sottocasco','Stivali impermeabili']},
+ {ic:'⛺',cat:'Campeggio',items:['Tenda','Sacco a pelo ≤ 0 °C','Materassino isolante','Fornello + gas','Lampada frontale']},
+ {ic:'🔌',cat:'Elettronica',items:['Navigatore / supporto telefono','Powerbank','Caricatori + adattatore UE','Action cam','Cavi']},
+ {ic:'🩹',cat:'Salute',items:['Kit primo soccorso','Farmaci personali','Crema solare','Salviette']},
+];
+
+/* ===================== STATO / PARAMETRI ===================== */
+const DEFAULTS={veicoli:2,persone:3,cons:6.0,alloggio:90,campeggio:25,cibo:22,traghetti:172,ponte:70,vignette:90,pedaggi:60};
+const STATE=Object.assign({},DEFAULTS);
+const PARAMS=[
+ {k:'veicoli',lbl:'Veicoli',u:'moto',min:1,max:6,step:1},
+ {k:'persone',lbl:'Persone',u:'pers',min:1,max:8,step:1},
+ {k:'cons',lbl:'Consumo',u:'L/100',min:3,max:12,step:0.1},
+ {k:'alloggio',lbl:'Alloggio',u:'€/notte',min:0,max:400,step:5},
+ {k:'campeggio',lbl:'Campeggio',u:'€/notte',min:0,max:120,step:5},
+ {k:'cibo',lbl:'Cibo',u:'€/gg·pers',min:0,max:100,step:1},
+ {k:'traghetti',lbl:'Traghetti',u:'€ tot',min:0,max:1000,step:1},
+ {k:'ponte',lbl:'Ponte Øresund',u:'€ tot',min:0,max:400,step:1},
+ {k:'vignette',lbl:'Vignette/bolli',u:'€ tot',min:0,max:400,step:1},
+ {k:'pedaggi',lbl:'Pedaggi',u:'€ tot',min:0,max:600,step:1},
+];
+/* costanti derivate dai dati */
+const TOTAL_KM=DAYS.reduce((s,d)=>s+d.km,0);
+const TOTAL_H=DAYS.reduce((s,d)=>s+d.h||s,0);
+const nightsDays=DAYS.filter(d=>d.n<=22);
+const LODGE_NIGHTS=nightsDays.filter(d=>d.stay==='casa'||d.stay==='sosta').length;
+const TENT_NIGHTS=nightsDays.filter(d=>d.stay==='tenda').length;
+const FOOD_DAYS=DAYS.length;
+const DRIVE_DAYS=DAYS.filter(d=>d.km>0).length;
+const LONGEST=Math.max(...DAYS.map(d=>d.km));
+
+/* ===================== HELPERS ===================== */
+const eur=n=>Math.round(n).toLocaleString('it-IT')+' €';
+const dec=n=>n.toFixed(2).replace('.',',');
+const num=n=>n.toLocaleString('it-IT');
+
+/* ===================== DASHBOARD ===================== */
+document.getElementById('dash').innerHTML=[
+ ['23','giorni',''],[num(TOTAL_KM),'km totali',''],['128,5','ore in sella',''],['11','paesi',''],
+ ['71°10′N','punto più a nord','sun'],[num(LONGEST)+' km','tappa più lunga',''],[DRIVE_DAYS,'giorni di guida',''],[TENT_NIGHTS,'notti in tenda','sun']
+].map(([v,k,c])=>`<div class="stat"><div class="v ${c}">${v}</div><div class="k">${k}</div></div>`).join('');
+
+/* ===================== PARAMETRI UI ===================== */
+function renderParams(){
+  document.getElementById('params').innerHTML=PARAMS.map(p=>`
+    <div class="pfield"><label>${p.lbl}</label>
+      <div class="inp"><input type="number" id="p_${p.k}" value="${STATE[p.k]}" min="${p.min}" max="${p.max}" step="${p.step}"><span class="u">${p.u}</span></div>
+    </div>`).join('');
+  PARAMS.forEach(p=>{
+    const el=document.getElementById('p_'+p.k);
+    el.addEventListener('input',()=>{ let v=parseFloat(el.value); if(isNaN(v))v=DEFAULTS[p.k]; STATE[p.k]=v; recompute(); });
+  });
+}
+document.getElementById('resetParams').onclick=()=>{Object.assign(STATE,DEFAULTS); renderParams(); renderFuelTable(); recompute();};
+
+/* ===================== MINI-MAPPA SVG ===================== */
+const B={latMin:44.3,latMax:71.7,lngMin:5.5,lngMax:27.5}, MW=88,MH=120,PAD=9;
+function proj(name){const [la,ln]=CO[name];return [(PAD+(ln-B.lngMin)/(B.lngMax-B.lngMin)*(MW-2*PAD)).toFixed(1),(PAD+(B.latMax-la)/(B.latMax-B.latMin)*(MH-2*PAD)).toFixed(1)];}
+const FULLPTS=FULLSEQ.map(proj).map(p=>p.join(',')).join(' ');
+function miniMap(d){
+  const legNames=[d.from]; if(d.via)legNames.push(d.via); legNames.push(d.to);
+  const a=proj(d.from),b=proj(d.to);
+  const legLine=d.km>0?`<polyline points="${legNames.map(proj).map(p=>p.join(',')).join(' ')}" fill="none" stroke="var(--aurora)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`:'';
+  const star=d.to==='Nordkapp'?`<circle cx="${b[0]}" cy="${b[1]}" r="4.5" fill="var(--sun)"/>`:`<circle cx="${b[0]}" cy="${b[1]}" r="3.2" fill="var(--aurora)"/>`;
+  return `<svg viewBox="0 0 ${MW} ${MH}" xmlns="http://www.w3.org/2000/svg"><polyline points="${FULLPTS}" fill="none" stroke="var(--line2)" stroke-width="1" opacity="0.7"/>${legLine}<circle cx="${a[0]}" cy="${a[1]}" r="2.4" fill="var(--dim)"/>${star}</svg>`;
+}
+
+/* ===================== ROADBOOK ===================== */
+let curFilter='all';
+function gmapsUrl(d){let u=`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(CO[d.from][2])}&destination=${encodeURIComponent(CO[d.to][2])}&travelmode=driving`; if(d.via)u+=`&waypoints=${encodeURIComponent(CO[d.via][2])}`; return u;}
+function wxChip(city){const w=WX[city]; if(!w)return ''; const ic=w[1]<=7?'❄':w[1]<=12?'🌬️':'⛅'; return `<span class="chip wx">${ic} ${w[0]}–${w[1]}°C</span>`;}
+function fuelLeg(km){const avg=avgPrice(); return km>0?Math.round(km*STATE.cons/100*avg):0;}
+function dayCard(d,i){
+  const drive=d.km>0;
+  const stayChip=d.stay==='tenda'?'<span class="chip tenda">⛺ Tenda</span>':d.stay==='sosta'?'<span class="chip sosta">● Sosta</span>':'<span class="chip casa">⌂ Alloggio</span>';
+  const route=drive?`${d.from} → ${d.to}`:d.from;
+  const via=d.via?`<span style="color:var(--faint)"> via ${d.via}</span>`:'';
+  const metrics=drive?`<div class="d-metrics"><span>Distanza <b>${d.km} km</b></span><span>Guida <b>${(''+d.h).replace('.',',')} h</b></span>${d.t?`<span>Orario <b>${d.t}</b></span>`:''}</div>`:`<div class="d-metrics"><span style="color:var(--dim)">Giornata di visita, nessun trasferimento</span></div>`;
+  const fuelChip=drive?`<span class="chip fuel" id="fchip-${d.n}">⛽ ≈ ${eur(fuelLeg(d.km))}</span>`:'';
+  const note=d.note?`<div class="d-note">${d.note}</div>`:'';
+  return `<div class="day ${drive?'':'rest'}" data-stay="${d.stay}" data-drive="${drive?1:0}">
+    <div class="thumb">${miniMap(d)}</div>
+    <div class="body">
+      <div class="d-top"><span class="d-date">GG ${String(d.n).padStart(2,'0')} · ${d.date}</span><span class="d-lat">${(''+d.lat).replace('.',',')}°N</span></div>
+      <div class="d-route">${route}${via}</div>
+      <div class="d-country">${d.co}</div>
+      ${metrics}
+      <div class="chips">${stayChip}${wxChip(d.to)}${fuelChip}</div>
+      ${note}
+      <div class="d-actions">${drive?`<a class="gm" href="${gmapsUrl(d)}" target="_blank" rel="noopener">↗ Google Maps</a>`:''}<button onclick="focusLeg(${i})">◎ Mappa</button></div>
+    </div></div>`;
+}
+function renderRoadbook(){
+  const host=document.getElementById('roadbookBody');
+  function block(arr,cls,label){
+    const cards=arr.map(d=>({d,i:DAYS.indexOf(d)})).filter(({d})=>curFilter==='all'?1:curFilter==='drive'?d.km>0:curFilter==='tenda'?d.stay==='tenda':d.stay==='sosta').map(({d,i})=>dayCard(d,i)).join('');
+    return cards?`<div class="phase ${cls}"><span class="tag">${label}</span><div class="rule"></div></div><div class="grid">${cards}</div>`:'';
+  }
+  host.innerHTML=(block(DAYS.filter(d=>d.n<=13),'up','Andata ↑ verso Capo Nord')+block(DAYS.filter(d=>d.n>13),'down','Ritorno ↓ verso casa'))||'<p style="color:var(--dim)">Nessuna tappa per questo filtro.</p>';
+}
+document.querySelectorAll('#filters button').forEach(b=>{b.onclick=()=>{document.querySelectorAll('#filters button').forEach(x=>x.classList.remove('on'));b.classList.add('on');curFilter=b.dataset.f;renderRoadbook();};});
+
+/* ===================== POI / CONSIGLI / CHECKLIST ===================== */
+document.getElementById('poiGrid').innerHTML=POI.map(p=>`<div class="poi-card"><h3><span class="pin">◆</span> ${p.city}</h3><ul>${p.items.map(([n,pr])=>`<li><span>${n}</span>${pr?`<span class="pr ${pr==='gratis'?'free':''}">${pr}</span>`:''}</li>`).join('')}</ul></div>`).join('');
+document.getElementById('tipsGrid').innerHTML=ROADS.map(t=>`<div class="tip road"><h4><span class="ic">${t.ic}</span>${t.t}</h4><p>${t.p}</p></div>`).join('')+TIPS.map(t=>`<div class="tip"><h4><span class="ic">${t.ic}</span>${t.t}</h4><p>${t.p}</p></div>`).join('');
+
+let checkTotal=0,checkDone=0;
+document.getElementById('checkGrid').innerHTML=CHECK.map((c,ci)=>{checkTotal+=c.items.length;return `<div class="check-cat"><h4><span class="ic">${c.ic}</span>${c.cat}</h4>${c.items.map((it,ii)=>`<label class="check-item"><input type="checkbox" data-c="${ci}"><span>${it}</span></label>`).join('')}</div>`;}).join('');
+function updateCheck(){checkDone=document.querySelectorAll('#checkGrid input:checked').length;const pct=Math.round(checkDone/checkTotal*100);document.getElementById('checkFill').style.width=pct+'%';document.getElementById('checkPct').textContent=pct+'%';}
+document.querySelectorAll('#checkGrid input').forEach(i=>i.addEventListener('change',updateCheck));updateCheck();
+
+/* ===================== CARBURANTE + BUDGET ===================== */
+function avgPrice(){let l=0,c=0;FUEL.forEach(f=>{const li=f.km*STATE.cons/100;l+=li;c+=li*f.price;});return c/l;}
+function renderFuelTable(){
+  const mx=Math.max(...FUEL.map(f=>f.price)),mn=Math.min(...FUEL.map(f=>f.price));
+  document.getElementById('fuelTable').innerHTML=`<div class="f-row head"><span>Paese · benzina Euro 95 · modificabile</span><span>€/litro</span></div>`+FUEL.map((f,i)=>{
+    const w=8+(f.price-mn)/(mx-mn||1)*92;
+    return `<div class="f-row"><div class="f-c">${f.c} <small>${num(f.km)} km${f.note?' · '+f.note:''}</small><div class="f-bar" id="fbar-${i}" style="width:${w}%"></div></div>
+      <div class="f-price-in"><input type="number" id="fp-${i}" value="${dec(f.price)}" min="0" max="4" step="0.01"><span class="u">€/L</span></div></div>`;
+  }).join('');
+  FUEL.forEach((f,i)=>{const el=document.getElementById('fp-'+i);el.addEventListener('input',()=>{let v=parseFloat(el.value.replace(',','.'));if(!isNaN(v))f.price=v;recompute();});});
+}
+function recompute(){
+  // barre benzina
+  const mx=Math.max(...FUEL.map(f=>f.price)),mn=Math.min(...FUEL.map(f=>f.price));
+  FUEL.forEach((f,i)=>{const bar=document.getElementById('fbar-'+i);if(bar)bar.style.width=(8+(f.price-mn)/(mx-mn||1)*92)+'%';});
+  // carburante per veicolo
+  let lit=0,cost=0;FUEL.forEach(f=>{const l=f.km*STATE.cons/100;lit+=l;cost+=l*f.price;});
+  const avg=cost/lit;
+  const fuelTot=cost*STATE.veicoli, lodge=LODGE_NIGHTS*STATE.alloggio, camp=TENT_NIGHTS*STATE.campeggio, food=STATE.persone*FOOD_DAYS*STATE.cibo;
+  const fixed=STATE.traghetti+STATE.ponte+STATE.vignette+STATE.pedaggi;
+  const grand=fuelTot+lodge+camp+food+fixed, per=grand/STATE.persone;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set('bFuel',eur(fuelTot)); set('bFuelSub',`${STATE.veicoli} veic · ${num(Math.round(lit))} L · ${dec(avg)} €/L`);
+  set('bLodge',eur(lodge)); set('bLodgeSub',`${LODGE_NIGHTS} notti`);
+  set('bCamp',eur(camp)); set('bCampSub',`${TENT_NIGHTS} notti`);
+  set('bFood',eur(food)); set('bFoodSub',`${STATE.persone} pers × ${FOOD_DAYS} gg`);
+  set('bFerry',eur(STATE.traghetti)); set('bBridge',eur(STATE.ponte)); set('bVign',eur(STATE.vignette)); set('bToll',eur(STATE.pedaggi));
+  set('bTotal',eur(grand)); set('bPer',eur(per));
+  set('bNote',`Carburante per veicolo ≈ ${eur(cost)} (${num(Math.round(lit))} L a ${dec(avg)} €/L). Nel preventivo originale: 1.900 € benzina di gruppo, ~1.856 €/persona con alloggi.`);
+  // chip carburante nelle card
+  DAYS.forEach(d=>{const c=document.getElementById('fchip-'+d.n);if(c&&d.km>0)c.textContent=`⛽ ≈ ${eur(d.km*STATE.cons/100*avg)}`;});
+}
+
+/* ===================== GRAFICI ===================== */
+const tipbox=document.getElementById('tipbox');
+function showTip(e,html){tipbox.innerHTML=html;tipbox.style.opacity=1;tipbox.style.left=Math.min(e.clientX+14,window.innerWidth-160)+'px';tipbox.style.top=(e.clientY-10)+'px';}
+function hideTip(){tipbox.style.opacity=0;}
+function latChart(){
+  const W=720,H=250,pl=42,pr=14,pt=16,pb=28, iw=W-pl-pr, ih=H-pt-pb;
+  const laMin=44,laMax=72;
+  const x=i=>pl+i/(DAYS.length-1)*iw, y=la=>pt+(laMax-la)/(laMax-laMin)*ih;
+  let grid='';[50,60,70].forEach(l=>{grid+=`<line x1="${pl}" y1="${y(l)}" x2="${W-pr}" y2="${y(l)}" stroke="var(--line)" stroke-width="1"/><text x="${pl-8}" y="${y(l)+4}" text-anchor="end" fill="var(--faint)" font-family="Space Mono" font-size="10">${l}°</text>`;});
+  const arctic=`<line x1="${pl}" y1="${y(66.56)}" x2="${W-pr}" y2="${y(66.56)}" stroke="var(--teal)" stroke-width="1.2" stroke-dasharray="5 5"/><text x="${W-pr}" y="${y(66.56)-6}" text-anchor="end" fill="var(--teal)" font-family="Space Mono" font-size="10">Circolo Polare 66,5°N</text>`;
+  const pts=DAYS.map((d,i)=>[x(i),y(d.lat)]);
+  const area=`M ${pts[0][0]} ${y(laMin)} `+pts.map(p=>`L ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ')+` L ${pts[pts.length-1][0]} ${y(laMin)} Z`;
+  const line=pts.map((p,i)=>(i?'L':'M')+` ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+  const dots=DAYS.map((d,i)=>{const nk=d.lat>71;return `<circle cx="${x(i).toFixed(1)}" cy="${y(d.lat).toFixed(1)}" r="${nk?5:3.2}" fill="${nk?'var(--sun)':'var(--aurora)'}" stroke="var(--bg)" stroke-width="1.5" style="cursor:pointer" onmousemove="showTip(event,'<b>GG ${d.n}</b> ${d.date}<br>${d.to} · ${(''+d.lat).replace('.',',')}°N')" onmouseleave="hideTip()"/>`;}).join('');
+  document.getElementById('latChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}"><defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--aurora)" stop-opacity="0.28"/><stop offset="1" stop-color="var(--aurora)" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#lg)"/><path d="${line}" fill="none" stroke="var(--aurora)" stroke-width="2.2"/>${arctic}${dots}</svg>`;
+}
+function kmChart(){
+  const W=720,H=230,pl=42,pr=14,pt=14,pb=30, iw=W-pl-pr, ih=H-pt-pb;
+  const mx=700, bw=iw/DAYS.length;
+  let grid='';[200,400,600].forEach(v=>{const yy=pt+(1-v/mx)*ih;grid+=`<line x1="${pl}" y1="${yy}" x2="${W-pr}" y2="${yy}" stroke="var(--line)" stroke-width="1"/><text x="${pl-8}" y="${yy+4}" text-anchor="end" fill="var(--faint)" font-family="Space Mono" font-size="10">${v}</text>`;});
+  const bars=DAYS.map((d,i)=>{const bh=d.km/mx*ih; const bx=pl+i*bw+bw*0.16; const by=pt+ih-bh; const col=d.km>=600?'var(--sun)':d.km>0?'var(--aurora)':'transparent';
+    return `<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${(bw*0.68).toFixed(1)}" height="${Math.max(bh,0).toFixed(1)}" rx="2" fill="${col}" style="cursor:pointer" onmousemove="showTip(event,'<b>GG ${d.n}</b> ${d.date}<br>${d.km>0?d.from+' → '+d.to+'<br><b>'+d.km+' km</b>':'sosta'}')" onmouseleave="hideTip()"/>`+
+    (d.n%3===1?`<text x="${(pl+i*bw+bw/2).toFixed(1)}" y="${H-8}" text-anchor="middle" fill="var(--faint)" font-family="Space Mono" font-size="9">${d.n}</text>`:'');}).join('');
+  document.getElementById('kmChart').innerHTML=`<svg viewBox="0 0 ${W} ${H}">${grid}${bars}</svg>`;
+}
+
+/* ===================== MAPPA LEAFLET ===================== */
+let map, upGroup, downGroup, poiGroup, markers={}, poiOn=false, curMode='all', boundsAll;
+const ll=n=>[CO[n][0],CO[n][1]];
+function setStatus(t){const e=document.getElementById('routeStatus');if(e)e.textContent=t;}
+
+function initMap(){
+  map=L.map('map',{scrollWheelZoom:false,zoomControl:true}).setView([62,17],4);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap · © CARTO',subdomains:'abcd',maxZoom:19}).addTo(map);
+  map.on('click',()=>map.scrollWheelZoom.enable());
+  upGroup=L.layerGroup().addTo(map); downGroup=L.layerGroup().addTo(map); poiGroup=L.layerGroup();
+  addMarkers();
+  drawStraight('up',STOPS_UP); drawStraight('down',STOPS_DOWN);
+  boundsAll=L.latLngBounds(FULLSEQ.map(ll));
+  setRoute('all');
+  fixSize();
+  loadRealRoutes();
+}
+function fixSize(){[80,300,800].forEach(t=>setTimeout(()=>{if(map)map.invalidateSize()},t));}
+window.addEventListener('resize',()=>{if(map)map.invalidateSize()});
+window.addEventListener('load',()=>{if(map)map.invalidateSize()});
+
+function addMarkers(){
+  DAYS.forEach(d=>{[d.from,d.to,d.via].filter(Boolean).forEach(name=>{
+    if(markers[name])return;
+    const isNK=name==='Nordkapp', isTent=DAYS.some(x=>x.to===name&&x.stay==='tenda');
+    const color=isNK?'#F6B44C':isTent?'#E8815A':'#34E5A8', r=isNK?8:5;
+    const m=L.circleMarker(ll(name),{radius:r,fillColor:color,color:'#0A1622',weight:2,fillOpacity:1}).addTo(map);
+    const dd=DAYS.find(x=>x.to===name&&x.km>0);
+    m.bindPopup(`<div class="pop-t">${name}</div><div class="pop-m">${CO[name][0].toFixed(2).replace('.',',')}°N</div>${dd?`<div class="pop-s">Arrivo GG ${dd.n} · ${dd.from} → ${name}<br>${dd.km} km · ${(''+dd.h).replace('.',',')} h</div>`:''}${isNK?'<div class="pop-s" style="color:var(--sun)">⭐ Punto più a nord — 71°10′N</div>':''}`);
+    markers[name]=m;
+  });});
+}
+function drawStraight(which,stops){
+  const g=which==='up'?upGroup:downGroup, col=which==='up'?'#34E5A8':'#F6B44C';
+  g.clearLayers();
+  if(which==='up'){L.polyline(stops.map(ll),{color:col,weight:9,opacity:.12}).addTo(g);L.polyline(stops.map(ll),{color:col,weight:3,opacity:.9}).addTo(g);}
+  else{
+    // ritorno: land1 + ferry (Helsinki-Tallinn) + land2, tutto tratteggiato in fallback
+    L.polyline(['Nordkapp','Muonio','Rovaniemi','Jyväskylä','Helsinki'].map(ll),{color:col,weight:2.8,opacity:.9,dashArray:'2 8',lineCap:'round'}).addTo(g);
+    L.polyline(['Helsinki','Tallinn'].map(ll),{color:col,weight:2.2,opacity:.7,dashArray:'1 7'}).addTo(g);
+    L.polyline(['Tallinn','Riga','Varsavia','Dresda','Stoccarda','Torino'].map(ll),{color:col,weight:2.8,opacity:.9,dashArray:'2 8',lineCap:'round'}).addTo(g);
+  }
+}
+async function osrm(names){
+  const coords=names.map(n=>`${CO[n][1]},${CO[n][0]}`).join(';');
+  const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`);
+  if(!r.ok)throw new Error('osrm');
+  const j=await r.json();
+  return j.routes[0].geometry.coordinates.map(c=>[c[1],c[0]]);
+}
+async function loadRealRoutes(){
+  setStatus('tracciato: calcolo strade reali…');
+  let okUp=false,okDown=false;
+  try{
+    const up=await osrm(STOPS_UP);
+    upGroup.clearLayers();
+    L.polyline(up,{color:'#34E5A8',weight:10,opacity:.13}).addTo(upGroup);
+    L.polyline(up,{color:'#34E5A8',weight:3.4,opacity:.95}).addTo(upGroup);
+    okUp=true;
+  }catch(e){}
+  try{
+    const d1=await osrm(DOWN_LAND1), d2=await osrm(DOWN_LAND2);
+    downGroup.clearLayers();
+    L.polyline(d1,{color:'#F6B44C',weight:3,opacity:.95}).addTo(downGroup);
+    L.polyline(['Helsinki','Tallinn'].map(ll),{color:'#F6B44C',weight:2.4,opacity:.75,dashArray:'2 7'}).addTo(downGroup); // traghetto
+    L.polyline(d2,{color:'#F6B44C',weight:3,opacity:.95,dashArray:'0'}).addTo(downGroup);
+    okDown=true;
+  }catch(e){}
+  setRoute(curMode);
+  setStatus(okUp&&okDown?'tracciato: strade reali ✓':okUp||okDown?'tracciato: parziale (linee dove il calcolo non è disponibile)':'tracciato: linee dirette (routing non disponibile offline)');
+}
+function setRoute(mode){
+  curMode=mode;
+  if(map.hasLayer(upGroup))map.removeLayer(upGroup);
+  if(map.hasLayer(downGroup))map.removeLayer(downGroup);
+  if(mode==='all'||mode==='up')upGroup.addTo(map);
+  if(mode==='all'||mode==='down')downGroup.addTo(map);
+  const b=mode==='up'?L.latLngBounds(STOPS_UP.map(ll)):mode==='down'?L.latLngBounds(STOPS_DOWN.map(ll)):boundsAll;
+  map.fitBounds(b,{padding:[40,40]});
+}
+window.focusLeg=function(i){
+  if(!map)return;
+  document.getElementById('mappa').scrollIntoView({behavior:'smooth'});
+  const d=DAYS[i], names=[d.from]; if(d.via)names.push(d.via); names.push(d.to);
+  setTimeout(()=>{map.invalidateSize();map.fitBounds(L.latLngBounds(names.map(ll)),{padding:[70,70],maxZoom:8});const t=markers[d.to]||markers[d.from];if(t)t.openPopup();},420);
+};
+document.querySelectorAll('#routeSeg button').forEach(b=>{b.onclick=()=>{document.querySelectorAll('#routeSeg button').forEach(x=>x.classList.remove('on'));b.classList.add('on');setRoute(b.dataset.r);};});
+document.getElementById('poiToggle').onclick=function(){
+  poiOn=!poiOn; this.classList.toggle('on',poiOn);
+  if(poiOn){poiGroup.clearLayers();POI.forEach(p=>{if(!CO[p.city])return;const m=L.circleMarker(ll(p.city),{radius:6,fillColor:'#23B3C9',color:'#0A1622',weight:2,fillOpacity:1});m.bindPopup(`<div class="pop-t">${p.city}</div><div class="pop-s">${p.items.map(it=>'◆ '+it[0]+(it[1]?' — '+it[1]:'')).join('<br>')}</div>`);m.addTo(poiGroup);});poiGroup.addTo(map);}
+  else map.removeLayer(poiGroup);
+};
+
+/* ===================== AVVIO ===================== */
+renderParams(); renderFuelTable(); renderRoadbook(); latChart(); kmChart(); recompute();
+const mapEl=document.getElementById('map');
+if(typeof L==='undefined'){mapEl.innerHTML='<div class="map-fallback">Impossibile caricare la libreria mappe.<br>Apri il file in un browser connesso a internet.</div>';setStatus('mappa non disponibile');}
+else{try{mapEl.querySelector('.map-fallback')?.remove();initMap();}catch(e){setStatus('errore mappa');console.error(e);}}
+</script>
+</body>
+</html>

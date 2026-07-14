@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capo Nord 2026 — Guida alle Tappe: cosa vedere, gratis e dove mangiare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0B1220;
+  --panel:#121B2B;
+  --panel2:#0F1726;
+  --line:#1E2A3F;
+  --ice:#6FD3E7;
+  --aurora:#7BE0A3;
+  --amber:#E8B45A;
+  --rose:#E88A8A;
+  --text:#E6EDF5;
+  --muted:#8FA1B8;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--night);
+  color:var(--text);
+  font-family:'Sora',sans-serif;
+  font-weight:300;
+  line-height:1.65;
+  font-size:15.5px;
+}
+a{color:var(--ice)}
+::selection{background:var(--aurora);color:#08131f}
+
+/* ---------- HEADER ---------- */
+header{
+  padding:52px 24px 30px;
+  max-width:1080px;margin:0 auto;
+  position:relative;
+}
+.eyebrow{
+  font-family:'Unbounded',sans-serif;font-size:11px;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--aurora);margin-bottom:14px;
+}
+h1{
+  font-family:'Unbounded',sans-serif;font-weight:900;
+  font-size:clamp(28px,5vw,52px);line-height:1.08;
+  background:linear-gradient(100deg,#E6EDF5 30%,var(--ice) 70%,var(--aurora));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-bottom:16px;
+}
+.sub{color:var(--muted);max-width:640px}
+.sub b{color:var(--text);font-weight:600}
+
+.backlink{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-top:22px;padding:11px 20px;border-radius:999px;
+  background:linear-gradient(90deg,rgba(111,211,231,.14),rgba(123,224,163,.14));
+  border:1px solid rgba(111,211,231,.45);
+  color:var(--ice);text-decoration:none;font-weight:600;font-size:14px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.backlink:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(111,211,231,.18)}
+.backlink svg{width:16px;height:16px}
+
+/* ---------- LEGEND ---------- */
+.legend{
+  max-width:1080px;margin:6px auto 0;padding:0 24px;
+  display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:13px;
+}
+.legend span b{font-weight:600}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:1px}
+
+/* ---------- NAV (latitude rail) ---------- */
+nav.rail{
+  position:sticky;top:0;z-index:50;
+  background:rgba(11,18,32,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  margin-top:26px;
+}
+.rail-inner{
+  max-width:1080px;margin:0 auto;
+  display:flex;gap:8px;overflow-x:auto;padding:12px 24px;
+  scrollbar-width:thin;
+}
+.chip{
+  flex:0 0 auto;text-decoration:none;
+  border:1px solid var(--line);border-radius:999px;
+  padding:7px 14px;background:var(--panel2);
+  display:flex;flex-direction:column;align-items:center;line-height:1.2;
+  transition:border-color .15s;
+}
+.chip:hover{border-color:var(--ice)}
+.chip .c-name{font-size:12.5px;font-weight:600;color:var(--text)}
+.chip .c-lat{font-family:'Unbounded',sans-serif;font-size:9px;color:var(--aurora);letter-spacing:.08em}
+.chip.apex .c-lat{color:var(--amber)}
+
+/* ---------- CITY SECTIONS ---------- */
+main{max-width:1080px;margin:0 auto;padding:10px 24px 80px}
+section.city{
+  padding:46px 0 12px;border-bottom:1px solid var(--line);
+  scroll-margin-top:76px;
+}
+.city-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.city-head h2{
+  font-family:'Unbounded',sans-serif;font-weight:700;
+  font-size:clamp(22px,3.2vw,30px);
+}
+.lat-tag{
+  font-family:'Unbounded',sans-serif;font-size:11px;letter-spacing:.14em;
+  color:var(--aurora);border:1px solid rgba(123,224,163,.4);
+  padding:3px 10px;border-radius:6px;
+}
+.day-tag{font-size:12.5px;color:var(--muted)}
+.city-intro{color:var(--muted);max-width:760px;margin-bottom:22px}
+.city-intro b{color:var(--text);font-weight:600}
+
+.blocks{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:34px}
+@media(min-width:880px){.blocks{grid-template-columns:1.15fr .85fr}}
+.block{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);padding:20px 22px;
+}
+.block h3{
+  font-family:'Unbounded',sans-serif;font-size:12px;letter-spacing:.22em;
+  text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:9px;
+}
+.block h3.see{color:var(--ice)}
+.block h3.free{color:var(--aurora)}
+.block h3.eat{color:var(--amber)}
+
+.item{padding:12px 0;border-top:1px dashed rgba(143,161,184,.22)}
+.item:first-of-type{border-top:none;padding-top:2px}
+.item-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.item-name{font-weight:600;font-size:15px}
+.price{
+  font-family:'Unbounded',sans-serif;font-size:11px;white-space:nowrap;
+  color:var(--amber);
+}
+.price.free{color:var(--aurora)}
+.item p{color:var(--muted);font-size:13.8px;margin-top:3px}
+.item p b{color:var(--text);font-weight:600}
+.tik{font-size:12.5px}
+.tik a{text-decoration:none;border-bottom:1px dotted var(--ice)}
+.eur{font-family:'Unbounded',sans-serif;font-size:10px;color:var(--amber);letter-spacing:.1em}
+
+/* transit callout */
+.transit{
+  background:linear-gradient(90deg,rgba(111,211,231,.07),transparent);
+  border-left:3px solid var(--ice);
+  padding:14px 18px;margin:0 0 34px;border-radius:0 10px 10px 0;
+  font-size:14px;color:var(--muted);
+}
+.transit b{color:var(--text);font-weight:600}
+
+/* note box */
+.note{
+  background:rgba(232,180,90,.08);border:1px solid rgba(232,180,90,.35);
+  border-radius:10px;padding:12px 16px;font-size:13.5px;color:#EAD3A8;margin-top:4px;
+}
+
+footer{
+  max-width:1080px;margin:0 auto;padding:34px 24px 60px;color:var(--muted);font-size:13px;
+}
+footer a{color:var(--ice)}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .backlink{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Torino → Capo Nord → Finlandia → Torino · 29 ago – 20 set 2026</div>
+  <h1>Guida alle tappe<br>71°10′ Nord e ritorno</h1>
+  <p class="sub">Cosa vedere, cosa è <b>gratis</b>, quanto costano i biglietti e dove si mangia <b>bene spendendo poco</b> in ogni città del giro. Prezzi verificati a luglio 2026 sui siti ufficiali: possono variare, controlla sempre il link del biglietto prima di partire.</p>
+  <a class="backlink" href="capo_nord_planner.html" id="plannerLink">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    Torna al planner del viaggio (budget &amp; mappa)
+  </a>
+</header>
+
+<div class="legend">
+  <span><span class="dot" style="background:var(--ice)"></span><b>Da vedere</b> — con prezzo e link biglietti</span>
+  <span><span class="dot" style="background:var(--aurora)"></span><b>Gratis</b> — a costo zero, con dove e cosa guardare</span>
+  <span><span class="dot" style="background:var(--amber)"></span><b>Dove mangiare</b> — economico ma con ottime recensioni</span>
+</div>
+
+<nav class="rail" aria-label="Tappe">
+  <div class="rail-inner">
+    <a class="chip" href="#stoccarda"><span class="c-name">Stoccarda</span><span class="c-lat">48.8°N</span></a>
+    <a class="chip" href="#hannover"><span class="c-name">Hannover</span><span class="c-lat">52.4°N</span></a>
+    <a class="chip" href="#copenaghen"><span class="c-name">Copenaghen</span><span class="c-lat">55.7°N</span></a>
+    <a class="chip" href="#oslo"><span class="c-name">Oslo</span><span class="c-lat">59.9°N</span></a>
+    <a class="chip" href="#stoccolma"><span class="c-name">Stoccolma</span><span class="c-lat">59.3°N</span></a>
+    <a class="chip" href="#umea"><span class="c-name">Umeå</span><span class="c-lat">63.8°N</span></a>
+    <a class="chip" href="#kiruna"><span class="c-name">Kiruna</span><span class="c-lat">67.9°N</span></a>
+    <a class="chip" href="#lofoten"><span class="c-name">Leknes · Lofoten</span><span class="c-lat">68.1°N</span></a>
+    <a class="chip" href="#skibotn"><span class="c-name">Skibotn</span><span class="c-lat">69.4°N</span></a>
+    <a class="chip apex" href="#caponord"><span class="c-name">★ Capo Nord</span><span class="c-lat">71.2°N</span></a>
+    <a class="chip" href="#muonio"><span class="c-name">Muonio</span><span class="c-lat">67.9°N</span></a>
+    <a class="chip" href="#rovaniemi"><span class="c-name">Rovaniemi</span><span class="c-lat">66.5°N</span></a>
+    <a class="chip" href="#jyvaskyla"><span class="c-name">Jyväskylä</span><span class="c-lat">62.2°N</span></a>
+    <a class="chip" href="#helsinki"><span class="c-name">Helsinki</span><span class="c-lat">60.2°N</span></a>
+    <a class="chip" href="#riga"><span class="c-name">Riga</span><span class="c-lat">56.9°N</span></a>
+    <a class="chip" href="#varsavia"><span class="c-name">Varsavia</span><span class="c-lat">52.2°N</span></a>
+    <a class="chip" href="#dresda"><span class="c-name">Dresda</span><span class="c-lat">51.0°N</span></a>
+  </div>
+</nav>
+
+<main>
+<!-- ============ STOCCARDA ============ -->
+<section class="city" id="stoccarda">
+  <div class="city-head"><h2>Stoccarda</h2><span class="lat-tag">48.78°N</span><span class="day-tag">sab 29 ago (sera) · sab 19 set (rientro)</span></div>
+  <p class="city-intro">Ci passate <b>due volte</b>: all'andata arrivate verso le 15, al ritorno pernottate. Idea furba: all'andata il museo Mercedes (aperto fino alle 18, biglietto serale scontato), al ritorno il Porsche la domenica mattina prima di ripartire — <b>conservate il biglietto del primo: vale il 25% di sconto nell'altro museo</b>.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Mercedes-Benz Museum</span><span class="price">16 € · serale (16:30–18) 12 €</span></div>
+        <p>9 km da dove dormite. 130 anni di storia dell'auto su 9 piani, audioguida in italiano inclusa. Si scende a spirale dall'alto: prevedete 2–3 ore. Under 15 gratis.</p>
+        <p class="tik">Biglietti: <a href="https://www.mercedes-benz.com/en/art-and-culture/museum/" target="_blank" rel="noopener">mercedes-benz.com → Museum</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Porsche Museum (Zuffenhausen)</span><span class="price">12 €</span></div>
+        <p>7 km da dove dormite, sopra la S-Bahn Neuwirtshaus. Più compatto del Mercedes ma con l'officina di restauro a vista e il simulatore. Under 14 gratis. Col biglietto Mercedes: <b>−25%</b> (e viceversa).</p>
+        <p class="tik">Biglietti: <a href="https://www.porsche.com/international/aboutporsche/porschemuseum/" target="_blank" rel="noopener">porsche.com → Museum</a></p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Schlossplatz</span><span class="price free">0 €</span></div>
+        <p>La piazza-salotto della città col Neues Schloss illuminato: perfetta per la passeggiata serale del 29. Da lì in 5 min a piedi la Königstraße pedonale.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Weissenhofsiedlung</span><span class="price free">0 € (esterni)</span></div>
+        <p>Quartiere-manifesto del 1927 con case di Le Corbusier e Mies van der Rohe, patrimonio UNESCO. Si gira liberamente tra le vie; il piccolo museo nella casa di Le Corbusier costa ~5 €.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Killesberg / vista città</span><span class="price free">0 €</span></div>
+        <p>Parco sopra la Weissenhof: tramonto sulla conca di Stoccarda senza spendere nulla.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Markthalle Stuttgart · Dorotheenstr. 4</span><span class="price">5–12 €</span></div>
+        <p>Mercato coperto liberty tra i più belli di Germania (4,5★ su Google con migliaia di recensioni): banchi svevi, turchi, italiani. Ideale a pranzo; chiuso la domenica.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Carls Brauhaus · Schlossplatz</span><span class="price">12–18 €</span></div>
+        <p>Birreria storica proprio sulla piazza: Maultaschen (i "ravioloni" svevi) e schnitzel a prezzi onesti per la posizione. Ottime recensioni su TripAdvisor e Google per il rapporto qualità/prezzo.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Da provare: Maultaschen &amp; Spätzle</span><span class="price">—</span></div>
+        <p>In qualsiasi Gaststätte di quartiere il piatto del giorno a pranzo (Mittagstisch) sta sui 9–12 €: è il modo più economico di mangiare svevo vero.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HANNOVER ============ -->
+<section class="city" id="hannover">
+  <div class="city-head"><h2>Hannover</h2><span class="lat-tag">52.37°N</span><span class="day-tag">dom 30 ago (sera)</span></div>
+  <p class="city-intro">Arrivate verso le 17: la città si gira benissimo <b>gratis a piedi in serata</b> seguendo il "Filo Rosso".</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Der Rote Faden (il Filo Rosso)</span><span class="price free">0 €</span></div>
+        <p>Una <b>linea rossa dipinta sul marciapiede per 4,2 km</b> che collega da sola 36 punti d'interesse: si parte dall'ufficio turistico davanti alla stazione e si segue la riga. L'opuscolo cartaceo costa ~3 €, ma la linea si segue anche senza.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Altstadt &amp; Marktkirche</span><span class="price free">0 €</span></div>
+        <p>Il centro storico a graticcio ricostruito attorno alla Marktkirche gotica in mattoni (ingresso libero fuori dalle funzioni).</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Le Nanas sul fiume Leine</span><span class="price free">0 €</span></div>
+        <p>Le tre sculture giganti e coloratissime di Niki de Saint Phalle sul lungofiume (Leibnizufer): il punto foto della città. A due passi, il Neues Rathaus con la cupola illuminata.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="see">Se avanzasse tempo</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Herrenhäuser Gärten</span><span class="price">≈ 8 €</span></div>
+        <p>Giardini barocchi tra i più importanti d'Europa con la Grotta di Niki de Saint Phalle. Aperti fino al tramonto — fattibili solo se arrivate in anticipo sulla tabella.</p>
+        <p class="tik">Info: <a href="https://www.hannover.de/Herrenhausen" target="_blank" rel="noopener">hannover.de/Herrenhausen</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Markthalle Hannover — "la pancia di Hannover"</span><span class="price">5–12 €</span></div>
+        <p>Mercato coperto con 60 banchi (aperto fino alle 20 nei feriali, sab fino alle 16, chiuso dom): currywurst, pesce affumicato, cucine dal mondo. Recensioni eccellenti come posto economico e verace.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Brauhaus Ernst August</span><span class="price">10–16 €</span></div>
+        <p>Birrificio nel centro storico, birra Hanöversch prodotta in casa e piatti tedeschi abbondanti. È la scelta classica per la domenica sera, quando la Markthalle è chiusa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COPENAGHEN ============ -->
+<section class="city" id="copenaghen">
+  <div class="city-head"><h2>Copenaghen</h2><span class="lat-tag">55.68°N</span><span class="day-tag">lun 31 ago (sera) + mar 1 set (giornata intera)</span></div>
+  <p class="city-intro">La vostra prima giornata intera di visita. Città cara ma <b>piena di cose gratuite</b>; per i musei valutate cosa vi interessa davvero. Nota: il <b>Palazzo della Borsa (Børsen)</b> che avevate in lista è ancora in restauro dopo l'incendio del 2024 — la guglia a code di drago si vede solo da fuori.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Castello di Rosenborg + gioielli della Corona</span><span class="price">≈ 135 DKK · ~18 €</span></div>
+        <p>Nel centro, dentro il Kongens Have (giardino gratuito). Il Tesoro nei sotterranei con le corone danesi è il pezzo forte. Under 18 gratis.</p>
+        <p class="tik">Biglietti: <a href="https://denkongeligesamling.dk/en/rosenborg-castle/tickets/" target="_blank" rel="noopener">denkongeligesamling.dk</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Castello di Kronborg (Helsingør)</span><span class="price">≈ 145 DKK · ~19 € (−10% online)</span></div>
+        <p>Il castello di Amleto, UNESCO, a 45 km: <b>in moto è una bella sparata costiera</b> lungo la Strandvejen. Casematte con la statua di Holger Danske. Metà giornata tra viaggio e visita.</p>
+        <p class="tik">Biglietti: <a href="https://kronborg.dk/en" target="_blank" rel="noopener">kronborg.dk</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Rundetaarn (Torre Rotonda)</span><span class="price">≈ 40 DKK · ~5,5 €</span></div>
+        <p>Salita a rampa elicoidale (niente scale!) e vista a 360° sui tetti: il miglior panorama qualità/prezzo della città.</p>
+        <p class="tik">Biglietti: <a href="https://www.rundetaarn.dk/en/" target="_blank" rel="noopener">rundetaarn.dk</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">CopenHagen Classic Car (quella dei 19 € in lista)</span><span class="price">≈ 19 €</span></div>
+        <p>Se vi resta il pallino motori dopo Stoccarda; altrimenti tagliabile senza rimpianti a favore di Kronborg.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Nyhavn</span><span class="price free">0 €</span></div>
+        <p>Il canale con le case colorate: al mattino presto (prima delle 9) è vostro per le foto, la sera è vita pura.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Biblioteca Reale "Black Diamond"</span><span class="price free">0 €</span></div>
+        <p>Ingresso libero: l'atrio in granito nero sull'acqua e la passerella interna valgono da soli la deviazione.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Cambio della guardia ad Amalienborg</span><span class="price free">0 € · ore 12:00</span></div>
+        <p>La guardia reale parte da Rosenborg ~11:30 e arriva ad Amalienborg alle 12: se siete a Rosenborg in mattinata, la seguite a piedi.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Grundtvigs Kirke</span><span class="price free">0 €</span></div>
+        <p>La cattedrale espressionista "a canne d'organo" in mattoni gialli, nel quartiere Bispebjerg: ingresso libero (chiusa il lunedì mattina). In moto ci arrivate in 10 min.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Freetown Christiania &amp; Sirenetta</span><span class="price free">0 €</span></div>
+        <p>Christiania si visita liberamente (niente foto nella Pusher Street); la Sirenetta è a 20 min a piedi lungo il porto, passando dalla fontana di Gefion.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Reffen Street Food · Refshaleøen</span><span class="price">75–120 DKK · 10–16 €</span></div>
+        <p>Il più grande street food market del Nord Europa, sull'acqua: decine di cucine, birra artigianale Mikkeller accanto. È il posto giusto per la cena del 1° settembre. Aperto fino a fine settembre, meteo permettendo.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Torvehallerne · Israels Plads</span><span class="price">60–120 DKK</span></div>
+        <p>Doppio mercato coperto vicino a Nørreport: da <b>Hallernes Smørrebrød</b> i tramezzini danesi classici a ~55–75 DKK l'uno — il modo più economico di provare lo smørrebrød "vero" (recensioni altissime).</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">DØP — hot dog bio · accanto alla Rundetaarn</span><span class="price">≈ 45 DKK · 6 €</span></div>
+        <p>Il chiosco di hot dog più recensito di Copenaghen: pranzo in piedi da 6 € nel pieno centro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="transit"><b>In transito il 2 set — Göteborg:</b> se vi fermate a pranzo, il quartiere Haga (vie pedonali in legno, gratis) è a 5 min dalla tangenziale; da Café Husaren i cinnamon roll giganti "Hagabullen" a ~45 SEK.</div>
+
+<!-- ============ OSLO ============ -->
+<section class="city" id="oslo">
+  <div class="city-head"><h2>Oslo</h2><span class="lat-tag">59.91°N</span><span class="day-tag">mer 2 set (sera) + gio 3 set (giornata intera)</span></div>
+  <p class="city-intro">Città carissima per mangiare, ma quasi tutto il meglio da vedere è <b>all'aperto e gratuito</b>. Il polo musei è sulla penisola di Bygdøy: in moto ci siete in 10 minuti.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Museo Fram (Bygdøy)</span><span class="price">≈ 180 NOK · ~15,5 €</span></div>
+        <p>La nave polare originale di Amundsen e Nansen, ci si sale a bordo; tunnel verso la Gjøa (prima nave del Passaggio a Nord-Ovest) e nuovo simulatore 4D. <b>Il museo perfetto prima di andare a Capo Nord.</b> 2–3 ore.</p>
+        <p class="tik">Biglietti: <a href="https://frammuseum.no" target="_blank" rel="noopener">frammuseum.no</a> (si compra anche in cassa senza problemi)</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Forsvarsmuseet (museo delle Forze Armate)</span><span class="price free">Gratuito</span></div>
+        <p>Nella fortezza di Akershus: a differenza dei 14 € che avevate segnato, <b>l'ingresso è storicamente gratuito</b> — verificate sul sito, ma non dovrebbe costarvi nulla. Anche i bastioni della fortezza sono a ingresso libero, con vista sul fiordo.</p>
+        <p class="tik">Info: <a href="https://www.forsvaretsmuseer.no" target="_blank" rel="noopener">forsvaretsmuseer.no</a></p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Vigelandsparken &amp; il Monolite</span><span class="price free">0 € · aperto 24h</span></div>
+        <p>Il parco con 200 sculture di Gustav Vigeland, Monolite compreso: il luogo più visitato di Norvegia e non costa nulla. Al tramonto è al suo meglio.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Tetto dell'Opera House</span><span class="price free">0 €</span></div>
+        <p>Si sale a piedi sul tetto di marmo inclinato fino in cima: vista su fiordo e Barcode. Icona assoluta, costo zero.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Ekebergparken</span><span class="price free">0 €</span></div>
+        <p>Parco di sculture sulla collina sopra il fiordo (Dalí, Rodin, Vigeland): il punto dove Munch immaginò "L'Urlo" è segnalato. In moto 10 min dal centro, parcheggio in cima.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Palazzo Reale &amp; cambio guardia</span><span class="price free">0 € · ore 13:30</span></div>
+        <p>Ogni giorno alle 13:30 davanti al palazzo, in cima alla Karl Johans gate. Il parco del palazzo è aperto a tutti.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Lungomare: Aker Brygge → Sørenga</span><span class="price free">0 €</span></div>
+        <p>La passeggiata portuale ristrutturata, con la sauna galleggiante e i tuffi dei locali anche a settembre.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Vippa · Vippetangen (porto)</span><span class="price">120–170 NOK · 10–15 €</span></div>
+        <p>Food hall in un capannone portuale sotto Akershus: cucine di tutto il mondo a prezzi da studenti (per Oslo). La cena più economica in zona centrale con recensioni ottime.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Mathallen Oslo · Vulkan</span><span class="price">120–200 NOK</span></div>
+        <p>L'avevate già in lista: mercato coperto gourmet lungo il fiume Akerselva. Più caro di Vippa ma ottimo a pranzo; la passeggiata lungo il fiume per arrivarci è gratis e bellissima.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Quartiere Grønland</span><span class="price">100–150 NOK</span></div>
+        <p>Il quartiere multietnico dietro la stazione: kebab, curry e pizze al trancio ai prezzi più bassi della città. Il trucco dei locali: <b>pranzo caldo dai banchi dei supermercati</b> (Meny/Coop) a ~89–129 NOK.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STOCCOLMA ============ -->
+<section class="city" id="stoccolma">
+  <div class="city-head"><h2>Stoccolma</h2><span class="lat-tag">59.33°N</span><span class="day-tag">ven 4 set (sera) + sab 5 set (giornata intera)</span></div>
+  <p class="city-intro">Buone notizie sulla vostra lista: il <b>Moderna Museet</b> che avevate segnato a 15 € ha la <b>collezione permanente gratuita</b> (si paga solo per le mostre temporanee). Il Vasa invece vale ogni corona.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Vasa Museum (Djurgården)</span><span class="price">240 SEK · ~21,5 €</span></div>
+        <p>Il galeone del 1628 recuperato intatto: il museo più visitato di Scandinavia. A settembre apre 10–17. Under 18 gratis, solo carte (niente contanti). Andateci all'apertura: alle 11 è pieno.</p>
+        <p class="tik">Biglietti: <a href="https://www.vasamuseet.se/en/visit/buy-ticket" target="_blank" rel="noopener">vasamuseet.se</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Palazzo Reale (interni)</span><span class="price">≈ 220 SEK</span></div>
+        <p>Solo se vi avanza tempo e voglia: gli appartamenti reali sono imponenti ma la giornata è corta. Il cambio della guardia fuori è gratis (vedi a destra).</p>
+        <p class="tik">Biglietti: <a href="https://www.kungligaslotten.se/english" target="_blank" rel="noopener">kungligaslotten.se</a></p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Gamla Stan: Stortorget &amp; Mårten Trotzigs Gränd</span><span class="price free">0 €</span></div>
+        <p>La piazza con le case colorate del 1600 e, a 3 minuti, il vicolo più stretto della città (90 cm). Perdersi nelle viuzze è il vero programma.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Moderna Museet — collezione permanente</span><span class="price free">0 €</span></div>
+        <p>Picasso, Dalí, Warhol e Rauschenberg sull'isola di Skeppsholmen, gratis. Chiuso lunedì; il sabato apre 10–18.</p>
+        <p class="tik"><a href="https://www.modernamuseet.se/stockholm/en/" target="_blank" rel="noopener">modernamuseet.se</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Cambio della guardia al Palazzo Reale</span><span class="price free">0 € · sab ore 12:15</span></div>
+        <p>Con banda militare, nel cortile esterno del palazzo: il sabato è alle 12:15. Arrivate 20 min prima per la balaustra.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Monteliusvägen &amp; SoFo (Södermalm)</span><span class="price free">0 €</span></div>
+        <p>La passeggiata panoramica a strapiombo su Gamla Stan (500 m, magica al tramonto) e poi giù nel quartiere SoFo che avevate in lista: vintage, caffè, vita locale.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Kajsas Fisk · Hötorgshallen</span><span class="price">~155 SEK · 14 €</span></div>
+        <p>Nel mercato sotterraneo di Hötorget: la loro <b>zuppa di pesce con refill</b> è un'istituzione cittadina, migliaia di recensioni entusiaste. Pranzo sazio a prezzo da mensa.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Meatballs for the People · Södermalm</span><span class="price">180–230 SEK</span></div>
+        <p>Le polpette svedesi "serie" (anche di renna e alce). Non economicissimo ma è IL posto per il piatto nazionale; a pranzo costa meno che a cena.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Trucco svedese: il "Dagens lunch"</span><span class="price">115–145 SEK</span></div>
+        <p>Nei giorni feriali quasi ogni ristorante offre il menù di mezzogiorno con piatto + insalata + caffè: mangiate da ristorante a metà prezzo. Il sabato cercate invece i chioschi di korv (hot dog) o i buffet asiatici.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UMEA ============ -->
+<section class="city" id="umea">
+  <div class="city-head"><h2>Umeå</h2><span class="lat-tag">63.83°N</span><span class="day-tag">dom 6 set (sera)</span></div>
+  <p class="city-intro">Tappa di trasferimento (spesa già prevista alla Stora Coop Ersboda). La "città delle betulle", Capitale Europea della Cultura 2014: giro serale rilassato lungo il fiume.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Lungofiume Umeälven &amp; Väven</span><span class="price free">0 €</span></div>
+        <p>Passeggiata sul fiume fino al centro culturale Väven (l'edificio a fasce bianche e nere ispirato alla corteccia di betulla): dentro c'è la biblioteca, aperta la sera, con vista.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Umedalen Skulpturpark</span><span class="price free">0 € · sempre aperto</span></div>
+        <p>Parco con ~40 sculture di artisti internazionali (anche Louise Bourgeois) alle porte della città: gratuito e sempre accessibile — deviazione di 10 min in moto.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Guitars – The Museum</span><span class="price">≈ 150 SEK (verificare orari)</span></div>
+        <p>Curiosità per rockettari: una delle più grandi collezioni di chitarre vintage al mondo. Solo se aperto in serata.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="eat">Dove mangiare</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Bistro Le Garage / pizzerie del centro</span><span class="price">120–180 SEK</span></div>
+        <p>Umeå è città universitaria: pizze e burger costano meno che nel resto di Svezia. In alternativa, cena da supermercato: la Stora Coop dove farete la spesa ha banco caldo e sconti serali.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="transit"><b>In transito il 7 set — Jokkmokk:</b> siete nel cuore della cultura Sami. Il museo <b>Ájtte</b> (≈ 120 SEK, ajtte.com) è la miglior introduzione alla Lapponia che attraverserete nei 4 giorni successivi; sosta caffè da Café Gasskas.</div>
+
+<!-- ============ KIRUNA ============ -->
+<section class="city" id="kiruna">
+  <div class="city-head"><h2>Kiruna</h2><span class="lat-tag">67.86°N</span><span class="day-tag">lun 7 set (sera)</span></div>
+  <p class="city-intro">La città che <b>si sta spostando di 3 km</b> per non sprofondare nella miniera di ferro più grande del mondo. Arrivate di sera: già così si respira l'atmosfera da frontiera artica.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Tour della miniera LKAB (−540 m)</span><span class="price">590 SEK · ~53 €</span></div>
+        <p>Bus dentro la montagna fino al centro visite a 540 m di profondità, 3 ore, caffè incluso. <b>Attenzione: i tour partono mar/gio/ven/sab</b> — voi arrivate lunedì sera e ripartite martedì mattina, quindi è fattibile solo se c'è un tour la mattina di martedì 8 e siete disposti a partire tardi per le Lofoten. Prenotare con largo anticipo.</p>
+        <p class="tik">Biglietti: <a href="https://kirunalapland.se/en/mine-tour/" target="_blank" rel="noopener">kirunalapland.se → Mine tour</a></p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Kiruna Kyrka — la chiesa che ha traslocato</span><span class="price free">0 €</span></div>
+        <p>La grande chiesa in legno rosso (votata più volte edificio più bello di Svezia) è stata <b>trasportata intera per 5 km nell'agosto 2025</b>: un evento seguito in mondovisione. Ora è nella nuova città, ingresso libero.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Nuovo centro &amp; municipio Kristallen</span><span class="price free">0 €</span></div>
+        <p>Il centro città nuovo di zecca costruito per il trasloco: il municipio circolare "Kristallen" ha una hall d'arte a ingresso libero. Dal belvedere sulla vecchia città si vede la miniera che avanza.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Caccia all'aurora</span><span class="price free">0 €</span></div>
+        <p>A inizio settembre a Kiruna l'aurora boreale è già possibile nelle notti serene: basta uscire dalle luci della città verso nord (parcheggio verso Nikkaluokta) e guardare il cielo dopo le 22.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Spis Mat &amp; Dryck · centro</span><span class="price">150–250 SEK</span></div>
+        <p>Il bistrot più recensito del nuovo centro: hamburger di renna e piatti lapponi onesti.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Empes Snabbmat</span><span class="price">90–130 SEK</span></div>
+        <p>Grill/fast food storico amato dai locali: la cena più economica possibile a Kiruna prima della spesa alla Stora Coop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============ LOFOTEN ============ -->
+<section class="city" id="lofoten">
+  <div class="city-head"><h2>Leknes &amp; Lofoten</h2><span class="lat-tag">68.15°N</span><span class="day-tag">mar 8 set (via Nusfjord e Henningsvær)</span></div>
+  <p class="city-intro">Il giorno più scenografico del viaggio in moto: la E10 tra le Lofoten è considerata tra le strade più belle del mondo, <b>e la strada stessa è l'attrazione</b>. Quasi tutto qui è paesaggio gratuito.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Lofotr Viking Museum · Borg (14 km da Leknes)</span><span class="price">265 NOK · ~23 € (fino al 15/9)</span></div>
+        <p>La casa lunga vichinga più grande mai scavata (83 m), ricostruita a grandezza reale con figuranti, focolari accesi, tiro con l'ascia e con l'arco inclusi nel biglietto. 1,5–2 ore, giusto sulla vostra strada. Dal 16/9 il prezzo scende a 210 NOK — voi passate l'8, quindi tariffa estiva.</p>
+        <p class="tik">Biglietti: <a href="https://ticket.lofotr.no" target="_blank" rel="noopener">ticket.lofotr.no</a> · info <a href="https://www.museumnord.no/en/our-venues/lofotr-viking-museum/" target="_blank" rel="noopener">museumnord.no</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Nusfjord</span><span class="price">≈ 100 NOK a persona</span></div>
+        <p>Uno dei villaggi di pescatori meglio conservati di Norvegia (rorbuer rosse a picco sul fiordo). Di giorno il borgo chiede un piccolo contributo d'ingresso che include caffè; la strada per arrivarci (Fv807) è già uno spettacolo.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Henningsvær + ponte di Henningsvær</span><span class="price free">0 €</span></div>
+        <p>Il "borgo sul mare" raggiunto dai ponti che avete in itinerario: parcheggiate la moto al porto e salite a piedi verso il famoso <b>campo da calcio sull'isolotto</b> (il punto foto delle Lofoten, gratis — il drone è vietato in estate ma dal bordo si vede benissimo).</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Spiagge di Haukland e Uttakleiv</span><span class="price free">0 € (parcheggio ~100 NOK)</span></div>
+        <p>A 20 min da Leknes: sabbia bianca e acqua caraibica a 68°N, collegate da una strada costiera panoramica. Se il cielo è sereno, tornateci di notte: sono tra i punti aurora più famosi di Norvegia.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Belvedere della E10</span><span class="price free">0 €</span></div>
+        <p>Piazzole segnalate lungo la strada nazionale panoramica: Torvdalshalsen (vista su Borg), il ponte di Fredvang, Flakstadpollen. Fermatevi spesso: è il senso della giornata.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Anita's Sjømat · Sakrisøy</span><span class="price">99–189 NOK</span></div>
+        <p>Baracca di mare leggendaria (4,6★ con migliaia di recensioni): il <b>fiskeburger</b> a ~139 NOK e il panino al salmone sono il pranzo iconico delle Lofoten. Vale la deviazione se spingete verso Reine.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Henningsvær Lysstøperi &amp; Café</span><span class="price">120–180 NOK</span></div>
+        <p>Caffetteria nella fabbrica di candele: zuppa di pesce e cannelle rolls, recensioni eccellenti. Perfetta per la sosta pomeridiana a Henningsvær.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Stockfish tip</span><span class="price">—</span></div>
+        <p>Lo stoccafisso che vedete sulle rastrelliere è lo stesso che arriva in Italia: nei supermercati KIWI/Rema 1000 di Leknes trovate snack di stoccafisso a pochi NOK — la "cena da tenda" più nordica che ci sia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKIBOTN ============ -->
+<section class="city" id="skibotn">
+  <div class="city-head"><h2>Skibotn</h2><span class="lat-tag">69.39°N</span><span class="day-tag">mer 9 set (tenda)</span></div>
+  <p class="city-intro">Prima notte in tenda, ai piedi delle <b>Alpi di Lyngen</b>. Skibotn è statisticamente uno dei posti più asciutti e sereni del Nord Norvegia: ottima scelta per l'aurora.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Tramonto sulle Alpi di Lyngen</span><span class="price free">0 €</span></div>
+        <p>Dalla riva del Lyngenfjord (spiaggia di ciottoli dietro il paese) la parete di ghiacciai dall'altra parte del fiordo si accende al tramonto. La strada che avete appena percorso da Olderdalen è tra le più belle della E6/E8.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Aurora boreale</span><span class="price free">0 €</span></div>
+        <p>Il microclima secco di Skibotn è famoso tra i fotografi: a inizio settembre il buio torna vero dopo le 21:30. Controllate l'indice Kp su <a href="https://www.yr.no" target="_blank" rel="noopener">yr.no</a> o l'app "Norway Lights" e state fuori dalle luci del campeggio.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Mercato di confine (Skibotn markedsplass)</span><span class="price free">0 €</span></div>
+        <p>Storico luogo d'incontro tra Sami, finlandesi e norvegesi: l'area del mercato con le capanne è liberamente visitabile.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="eat">Cena</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Spesa alla Coop di Skibotn / grill del campeggio</span><span class="price">—</span></div>
+        <p>Qui si cucina al fornelletto: zuppe liofilizzate + pane + makrell i tomat (sgombro al pomodoro in scatola, il classico norvegese da campo). L'alternativa calda è la stazione di servizio sulla E8 con hot dog e caffè.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAPO NORD ============ -->
+<section class="city" id="caponord">
+  <div class="city-head"><h2>★ Capo Nord / Nordkapp</h2><span class="lat-tag">71.17°N</span><span class="day-tag">gio 10 set (tenda) — il punto più a nord del viaggio</span></div>
+  <p class="city-intro">Il traguardo: 307 metri di falesia sul Mare di Barents. La notizia migliore: <b>dopo anni di cause legali, l'accesso al plateau e il parcheggio sono gratuiti</b> — si paga solo se si vuole entrare nel centro visite. In settembre il sole tramonta di nuovo: verso le 20 la luce sul Globo è incredibile.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Nordkapphallen (centro visite)</span><span class="price">350 NOK · ~30 € (valido 24h)</span></div>
+        <p>Include il film panoramico di Ivo Caprino, il museo, la "Grotta della Luce", la cappella e — non secondario a 71°N — bagni caldi, Wi-Fi e caffetteria aperta tutto l'anno. Il biglietto vale 24 ore con ingressi multipli: se la nebbia copre tutto, riprovate il mattino dopo gratis.</p>
+        <p class="tik">Biglietti e orari: <a href="https://nordkapphallen.no/north-cape-visitor-center/opening-hours-and-prices/" target="_blank" rel="noopener">nordkapphallen.no</a></p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Il plateau e il Globo</span><span class="price free">0 €</span></div>
+        <p>L'accesso al piazzale, al monumento del Globo e alla falesia è <b>gratuito per sentenza</b> (il casello all'ingresso riscuote solo il biglietto della hall: se vi fermano, chiedete esplicitamente dell'accesso esterno gratuito). Il piazzale è aperto 24h e molti motociclisti ci passano la notte.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Sentiero per Knivskjellodden</span><span class="price free">0 €</span></div>
+        <p>Il "vero" punto più a nord (1.450 m più su del Capo): trekking di 18 km A/R (5–6 ore) dal parcheggio 7 km prima del Capo. Solo se aveste una mezza giornata e gambe: dal Capo comunque lo si vede.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Tunnel di Capo Nord</span><span class="price free">0 € (pedaggio abolito)</span></div>
+        <p>I 6,8 km sotto il mare per l'isola di Magerøya <b>non si pagano più</b>: le vecchie guide citano ancora il pedaggio, ignoratele. Occhio alle renne in carreggiata sugli ultimi 30 km.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare (Honningsvåg, 30 km prima)</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Corner Spiseri · Honningsvåg</span><span class="price">180–260 NOK</span></div>
+        <p>Il ristorante "di tutti" del paese, ottime recensioni: zuppa di pesce e piatti di merluzzo onesti. È il pasto caldo giusto prima della notte in tenda al Capo.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">King crab — il lusso calcolato</span><span class="price">da ~400 NOK</span></div>
+        <p>Il granchio reale del Barents è la specialità qui e costa la metà che a Oslo: se c'è un posto dove concederselo una volta nel viaggio, è questo.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Arctic Souvenir + spesa</span><span class="price">—</span></div>
+        <p>Come da vostro programma: la Rema 1000 di Honningsvåg è l'ultimo vero supermercato prima del Capo — fate qui scorta per cena e colazione.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MUONIO ============ -->
+<section class="city" id="muonio">
+  <div class="city-head"><h2>Muonio</h2><span class="lat-tag">67.95°N</span><span class="day-tag">ven 11 set (sera) — si entra in Finlandia</span></div>
+  <p class="city-intro">Prima notte finlandese, nel silenzio della Lapponia occidentale. Qui non ci sono "attrazioni": c'è la natura del parco nazionale <b>Pallas-Yllästunturi</b>, che in Finlandia è sempre gratuita.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Parco nazionale Pallas-Yllästunturi</span><span class="price free">0 €</span></div>
+        <p>L'aria ufficialmente più pulita d'Europa (c'è la stazione di misura). Dal centro visite Kellokas o dal versante di Pallas partono anelli segnati di 1–3 km tra i colori del <b>ruska</b>, il foliage lappone che a metà settembre esplode. Parchi nazionali finlandesi: ingresso sempre libero.</p>
+        <p class="tik">Sentieri: <a href="https://www.nationalparks.fi/pallas-yllastunturinp" target="_blank" rel="noopener">nationalparks.fi</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Ponte sul Muonionjoki</span><span class="price free">0 €</span></div>
+        <p>Il fiume di confine con la Svezia che avete appena costeggiato: al tramonto dal ponte di Muonio è un nastro d'argento tra le foreste.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Aurora sul lago Jerisjärvi</span><span class="price free">0 €</span></div>
+        <p>10 min a nord: riva sgombra verso nord, zero inquinamento luminoso. Tra i posti più affidabili di Finlandia per l'aurora di inizio autunno.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="eat">Dove mangiare</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">K-Market / Sale Muonio + griglia</span><span class="price">—</span></div>
+        <p>Il paese è minuscolo: cena semplice da market (provate i <b>karjalanpiirakka</b>, sfoglie di segale col riso, da scaldare) o pizza-kebab locale. Se l'alloggio ha la griglia: salsicce lapponi e fuoco, alla finlandese.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============ ROVANIEMI ============ -->
+<section class="city" id="rovaniemi">
+  <div class="city-head"><h2>Rovaniemi</h2><span class="lat-tag">66.50°N</span><span class="day-tag">sab 12 set (arrivo ore 12 — mezza giornata piena)</span></div>
+  <p class="city-intro">Tappa corta (229 km): avete tutto il pomeriggio. La "capitale della Lapponia", ricostruita dopo la guerra su piano di Alvar Aalto con la pianta a forma di testa di renna.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Arktikum — museo e science centre</span><span class="price">≈ 20 € (verificare sul sito)</span></div>
+        <p>Sotto una galleria di vetro puntata verso nord: il miglior museo sull'Artico, i Sami e l'aurora che incontrerete nel viaggio. 1,5–2 ore ben spese se il meteo è brutto.</p>
+        <p class="tik">Biglietti: <a href="https://www.arktikum.fi/en/" target="_blank" rel="noopener">arktikum.fi</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Foto ufficiale con Babbo Natale</span><span class="price">pacchetti da ~55 €</span></div>
+        <p>L'incontro è gratuito (vedi a destra); si paga solo la foto/video del fotografo ufficiale — le proprie fotocamere non sono ammesse <em>dentro</em> lo studio. Decidete prima se vi serve.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Santa Claus Village &amp; Circolo Polare Artico</span><span class="price free">0 € ingresso</span></div>
+        <p>8 km a nord sulla E75, <b>ingresso libero tutto l'anno</b>: attraversate a piedi (o in moto!) la linea del Circolo Polare dipinta sul piazzale, e <b>incontrare Babbo Natale nel suo ufficio è gratis</b>. Gratuita anche la visita al Main Post Office, da cui spedire cartoline col timbro polare (si paga solo il francobollo).</p>
+        <p class="tik"><a href="https://santaclausvillage.info" target="_blank" rel="noopener">santaclausvillage.info</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Ponte Jätkänkynttilä &amp; lungofiume</span><span class="price free">0 €</span></div>
+        <p>Il ponte strallato "candela del boscaiolo" sul Kemijoki, illuminato di sera: passeggiata sull'argine dal centro.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Café &amp; Bar 21 · centro</span><span class="price">10–18 €</span></div>
+        <p>Tra i locali più recensiti di Rovaniemi: burger, insalatone e dolci; atmosfera giovane, prezzi da città universitaria.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Trucco finlandese: il lounas</span><span class="price">11–14 €</span></div>
+        <p>Nei feriali (e sabato in alcuni posti) il buffet di pranzo "lounas" con zuppa, caldo, insalate e caffè: da Rax o nei ristoranti del centro. Il modo più economico per un pasto completo in Finlandia.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Assaggio lappone: poronkäristys</span><span class="price">18–24 €</span></div>
+        <p>Lo spezzatino di renna con purè e mirtilli rossi: se volete provarlo una volta, qui costa meno che a Helsinki.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JYVASKYLA ============ -->
+<section class="city" id="jyvaskyla">
+  <div class="city-head"><h2>Jyväskylä</h2><span class="lat-tag">62.24°N</span><span class="day-tag">dom 13 set (sera)</span></div>
+  <p class="city-intro">La città di <b>Alvar Aalto</b>: nessun'altra al mondo ha più suoi edifici. Città universitaria sul lago, giro serale gradevole e cena economica.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Museo Alvar Aalto</span><span class="price">≈ 12 € (verificare orari domenicali)</span></div>
+        <p>Progettato da Aalto stesso, riaperto dopo il rinnovo insieme al Museo della Finlandia Centrale adiacente. La domenica chiude presto: se arrivate alle 18 restano gli esterni — comunque notevoli.</p>
+        <p class="tik">Info: <a href="https://alvaraalto.fi/en/" target="_blank" rel="noopener">alvaraalto.fi</a></p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Campus universitario di Aalto</span><span class="price free">0 €</span></div>
+        <p>Il campus "Seminaarinmäki" tra i pini, con gli edifici in mattone rosso di Aalto, si gira liberamente: architettura moderna in un bosco.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Collina Harju &amp; torre Vesilinna</span><span class="price free">0 €</span></div>
+        <p>Scalinata monumentale nel bosco in pieno centro: dalla cima, vista sui laghi al tramonto (la torre panoramica ha un ristorante, ma il belvedere esterno è libero).</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Lungolago Jyväsjärvi &amp; sauna? No: ponte Ylistö</span><span class="price free">0 €</span></div>
+        <p>Anello pedonale illuminato sul lago (Rantaraitti): la passeggiata serale dei locali, col ponte Ylistönsilta riflesso nell'acqua.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Sohwi · zona università</span><span class="price">12–17 €</span></div>
+        <p>Pub-ristorante amatissimo dagli studenti (recensioni ottime da anni): porzioni enormi, birre locali, prezzi giusti. Aperto la domenica sera.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Kebab-pizzerie di Kauppakatu</span><span class="price">9–13 €</span></div>
+        <p>La via centrale è piena di locali economici aperti fino a tardi: la classica cena da città universitaria finlandese.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HELSINKI ============ -->
+<section class="city" id="helsinki">
+  <div class="city-head"><h2>Helsinki</h2><span class="lat-tag">60.17°N</span><span class="day-tag">lun 14 set (dalle 14) + mar 15 set (giornata intera)</span></div>
+  <p class="city-intro">Un giorno e mezzo: il ritmo giusto per la capitale del design. Della vostra lista, occhio che la <b>Temppeliaukio ora è a pagamento</b> (10 €) e che il capolavoro gratuito assoluto è la biblioteca Oodi.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Temppeliaukio — la chiesa nella roccia</span><span class="price">≈ 10 €</span></div>
+        <p>Scavata nel granito con la cupola di rame e la luce zenitale: dalla vostra lista, resta imperdibile. Gratis solo durante le funzioni; controllate gli orari perché chiude per eventi.</p>
+        <p class="tik">Biglietti/orari: <a href="https://www.temppeliaukionkirkko.fi/en" target="_blank" rel="noopener">temppeliaukionkirkko.fi</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Amos Rex</span><span class="price">≈ 20 €</span></div>
+        <p>Il museo d'arte sotterraneo sotto piazza Lasipalatsi, con le cupole-oblò su cui i ragazzini fanno skate: mostre immersive di livello mondiale. Chiuso il martedì → <b>andateci lunedì pomeriggio appena arrivati</b>.</p>
+        <p class="tik">Biglietti: <a href="https://amosrex.fi/en/" target="_blank" rel="noopener">amosrex.fi</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Löyly — sauna sul mare</span><span class="price">29 € / 2 ore</span></div>
+        <p>L'avevate in lista: sauna d'autore sul Baltico con tuffo in mare, asciugamano incluso. Tra i "100 luoghi più belli del mondo" per Time. <b>Prenotate online in anticipo</b>: i posti finiscono. Il rito perfetto per l'ultima sera nordica.</p>
+        <p class="tik">Prenotazione: <a href="https://www.loylyhelsinki.fi/en/public-sauna" target="_blank" rel="noopener">loylyhelsinki.fi</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Fortezza di Suomenlinna</span><span class="price">solo traghetto ~4,10 € A/R con biglietto HSL</span></div>
+        <p>L'isola-fortezza UNESCO: l'ingresso è libero, si paga solo il traghetto urbano (15 min da Kauppatori, incluso nel normale biglietto HSL). La gita "quasi gratis" più bella della città.</p>
+        <p class="tik">Traghetto: app <a href="https://www.hsl.fi/en" target="_blank" rel="noopener">HSL</a></p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Biblioteca Oodi</span><span class="price free">0 €</span></div>
+        <p>Dalla vostra lista: il salotto pubblico più bello d'Europa. Salite al 3° piano, la "piazza coperta" ondulata con la terrazza che guarda il Parlamento. Aperta fino alle 21 nei feriali.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Piazza del Senato &amp; Cattedrale</span><span class="price free">0 € (piazza)</span></div>
+        <p>Il set neoclassico simbolo della città. La cattedrale bianca ha introdotto un biglietto per i turisti in alta stagione (~10 €): la scalinata e la piazza, dove sta il bello, restano gratuite.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Monumento a Sibelius</span><span class="price free">0 €</span></div>
+        <p>Le 600 canne d'acciaio nel parco di Töölö, dalla vostra lista: passandoci in moto è una sosta di 15 minuti sulla strada per Löyly.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Finlandia Hall (esterni) &amp; baia di Töölönlahti</span><span class="price free">0 €</span></div>
+        <p>Il capolavoro in marmo di Aalto si ammira dall'anello pedonale della baia: passeggiata di 2 km che infila Oodi, Finlandia Hall e il parco.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Vanha Kauppahalli (Old Market Hall) → Soppakeittiö</span><span class="price">13–15 €</span></div>
+        <p>Nel mercato coperto del 1889 sul porto: la <b>zuppa di salmone di Soppakeittiö</b> con pane è il pranzo più citato dalle guide e dalle recensioni locali. Chiuso la domenica, per voi perfetto lunedì o martedì.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Fafa's</span><span class="price">9–13 €</span></div>
+        <p>Catena nata a Helsinki di pita e falafel, onnipresente e amatissima: la cena veloce economica standard dei locali.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Sea Horse · Ullanlinna</span><span class="price">18–28 €</span></div>
+        <p>Dal 1934, il "classico" finlandese verace (aringhe, polpette, cavolo): non è il più economico ma a pranzo si sta sotto i 20 € ed è un'istituzione con recensioni solide da decenni.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="transit"><b>In transito il 16 set — Tallinn (traghetto):</b> se lo scalo lo consente, la città vecchia UNESCO è tutta gratuita ed è a 15 min a piedi dal terminal: Raekoja plats, le mura, il belvedere di Kohtuotsa. Pranzo economico da Balti Jaama Turg (mercato, 6–10 €). Traghetti Tallink/Eckerö ~2h: prenotate la moto in anticipo su <a href="https://en.tallink.com" target="_blank" rel="noopener">tallink.com</a>.</div>
+
+<!-- ============ RIGA ============ -->
+<section class="city" id="riga">
+  <div class="city-head"><h2>Riga</h2><span class="lat-tag">56.95°N</span><span class="day-tag">mer 16 set (sera)</span></div>
+  <p class="city-intro">Dopo la Scandinavia, <b>qui i prezzi crollano</b>: cena completa a 10 €. La città vecchia UNESCO si gira tutta a piedi in una sera.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Torre di San Pietro</span><span class="price">≈ 12 €</span></div>
+        <p>Ascensore a 72 m: il miglior panorama sui tetti della città vecchia e sul Daugava. Aperta fino a sera.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Casa delle Teste Nere (interni)</span><span class="price">≈ 12 €</span></div>
+        <p>La facciata fiabesca ricostruita sulla Rātslaukums: gli interni si visitano, ma se avete solo la sera basta e avanza l'esterno illuminato (gratis).</p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Vecrīga — la città vecchia</span><span class="price free">0 €</span></div>
+        <p>Tre Fratelli, Duomo, vicolo Rozena (il più stretto), Porta Svedese, Monumento alla Libertà: tutto in un anello di 2 km perfetto dopo cena.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Quartiere Art Nouveau — Alberta iela</span><span class="price free">0 €</span></div>
+        <p>Riga ha la più alta concentrazione di Art Nouveau al mondo: la via Alberta di Michail Ejzenštejn è un museo a cielo aperto, gratis, a 15 min a piedi dal centro storico.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Mercato Centrale negli hangar Zeppelin</span><span class="price free">0 € ingresso</span></div>
+        <p>Cinque hangar per dirigibili tedeschi della WWI riconvertiti nel più grande mercato d'Europa: da vedere anche solo per l'edificio (di sera restano i padiglioni gastronomici).</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">LIDO Vērmanītis · Elizabetes iela</span><span class="price">7–12 €</span></div>
+        <p>L'istituzione lettone: self-service con cucina nazionale (aringhe, maiale, patate, kvass alla spina). Piatti abbondanti, recensioni ottime, conto minuscolo.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Street food al Mercato Centrale / Centrāltirgus</span><span class="price">4–8 €</span></div>
+        <p>Pelmeņi, pane nero, formaggio al cumino: il padiglione gastronomico è aperto fino a sera nel fine settimana, di giorno sempre.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Birra: Labietis</span><span class="price">3–5 € a pinta</span></div>
+        <p>Birrificio artigianale di culto vicino al mercato: il bicchiere della staffa baltico costa un terzo che a Stoccolma.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VARSAVIA ============ -->
+<section class="city" id="varsavia">
+  <div class="city-head"><h2>Varsavia</h2><span class="lat-tag">52.23°N</span><span class="day-tag">gio 17 set (sera)</span></div>
+  <p class="city-intro">670 km in sella e poi una capitale che di sera dà il meglio: città vecchia illuminata e cena polacca sostanziosa a prezzi da 2010.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Terrazza del Palazzo della Cultura (30° piano)</span><span class="price">≈ 65 PLN · ~15 €</span></div>
+        <p>Il "regalo" staliniano alto 237 m: dalla terrazza panoramica, aperta fino a tardi, tutta Varsavia di notte. Biglietti serali spesso disponibili sul momento.</p>
+        <p class="tik">Biglietti: <a href="https://pkin.pl/en/" target="_blank" rel="noopener">pkin.pl</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Castello Reale</span><span class="price">≈ 40–60 PLN · mercoledì gratis</span></div>
+        <p>Se passaste di mercoledì sarebbe gratuito; giovedì sera è chiuso — resta la piazza del Castello con la colonna di Sigismondo, che è il vero colpo d'occhio.</p>
+        <p class="tik">Info: <a href="https://www.zamek-krolewski.pl/en" target="_blank" rel="noopener">zamek-krolewski.pl</a></p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Stare Miasto — la città vecchia ricostruita</span><span class="price free">0 €</span></div>
+        <p>Rasa al suolo nel 1944 e ricostruita mattone su mattone (UNESCO proprio per questo): piazza del Mercato con la Sirenetta di Varsavia, mura e barbacane. Di sera, con le luci, è al massimo.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Trakt Królewski (Via Reale)</span><span class="price free">0 €</span></div>
+        <p>Da piazza del Castello lungo Krakowskie Przedmieście: università, chiesa di Santa Croce (dov'è il cuore di Chopin), panchine musicali che suonano Chopin premendo un tasto.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Fontana multimediale / lungovistola</span><span class="price free">0 €</span></div>
+        <p>I boulevard sulla Vistola sotto la città vecchia: la passeggiata serale dei varsaviani, con vista sullo stadio illuminato.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Bar mleczny (milk bar) — es. Prasowy</span><span class="price">15–25 PLN · 3,5–6 €</span></div>
+        <p>Le mense popolari sopravvissute al comunismo, oggi di culto: pierogi, żurek e kotlet a prezzi simbolici. Prasowy (Marszałkowska 10) è il più celebre e recensito.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Zapiecek · città vecchia</span><span class="price">25–40 PLN</span></div>
+        <p>Catena di pierogarnie sempre piena: pierogi fatti a mano in 20 varianti, aperta fino a tardi, perfetta dopo il giro serale.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Hala Koszyki</span><span class="price">25–45 PLN</span></div>
+        <p>Food hall liberty restaurata: se preferite un posto unico con tante cucine e birre polacche artigianali.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DRESDA ============ -->
+<section class="city" id="dresda">
+  <div class="city-head"><h2>Dresda</h2><span class="lat-tag">51.05°N</span><span class="day-tag">ven 18 set (sera) — ultima capitale d'arte del giro</span></div>
+  <p class="city-intro">La "Firenze sull'Elba": il centro barocco ricostruito è compatto e <b>quasi tutto godibile gratis dall'esterno</b>, illuminato fino a tardi.</p>
+  <div class="blocks">
+    <div class="block">
+      <h3 class="see">Da vedere</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Cupola della Frauenkirche</span><span class="price">10 € (chiesa gratis)</span></div>
+        <p>L'ingresso alla chiesa simbolo della ricostruzione è <b>gratuito</b>; la salita alla cupola (67 m, ascensore + rampe) costa 10 € e regala il panorama sull'Elba al tramonto — di solito salibile fino alle 18, d'estate anche oltre.</p>
+        <p class="tik">Info: <a href="https://www.frauenkirche-dresden.de/en/" target="_blank" rel="noopener">frauenkirche-dresden.de</a></p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Zwinger — musei</span><span class="price">≈ 14 € (cortili gratis)</span></div>
+        <p>La Gemäldegalerie con la Madonna Sistina di Raffaello: solo se aveste un domani mattina lento — chiude alle 18. I cortili e le fontane del complesso sono a ingresso libero fino a sera.</p>
+        <p class="tik">Biglietti: <a href="https://gemaeldegalerie.skd.museum/en/" target="_blank" rel="noopener">skd.museum</a></p>
+      </div>
+    </div>
+    <div class="block">
+      <h3 class="free">Gratis</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Fürstenzug — il corteo dei principi</span><span class="price free">0 €</span></div>
+        <p>102 metri di murale su 23.000 piastrelle di porcellana di Meissen: il più grande del mondo, in Augustusstraße, visibile sempre.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Brühlsche Terrasse — "il balcone d'Europa"</span><span class="price free">0 €</span></div>
+        <p>La terrazza sull'Elba tra i palazzi barocchi: la passeggiata serale definitiva, con i battelli a vapore ormeggiati sotto.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Neustadt &amp; Kunsthofpassage</span><span class="price free">0 €</span></div>
+        <p>Oltre il fiume, il quartiere alternativo: i cortili artistici con la famosa "casa che suona con la pioggia". Vivace anche di venerdì sera, ed è la zona dove si beve e si mangia spendendo meno.</p>
+      </div>
+    </div>
+  </div>
+  <div class="blocks">
+    <div class="block" style="grid-column:1/-1">
+      <h3 class="eat">Dove mangiare bene spendendo poco</h3>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Watzke Brauereiausschank am Goldenen Reiter · Neustadt</span><span class="price">10–16 €</span></div>
+        <p>Birrificio storico dresdense con cucina sassone abbondante (arrosto in salsa, knödel): ottime recensioni e conto onesto, a 5 min dal centro barocco oltre il ponte.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Street food in Neustadt (Alaunstraße)</span><span class="price">5–10 €</span></div>
+        <p>Falafel, döner e curry 24/7: la via più economica della città per l'ultima cena "on the road" prima del rientro.</p>
+      </div>
+      <div class="item">
+        <div class="item-top"><span class="item-name">Dolce da provare: Eierschecke</span><span class="price">~4 €</span></div>
+        <p>La torta a strati sassone, nei caffè attorno alla Frauenkirche: chiusura perfetta del capitolo gastronomico del viaggio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Guida collegata al planner <a href="capo_nord_planner.html">capo_nord_planner.html</a> — tieni i due file nella stessa cartella. Prezzi rilevati a luglio 2026 da siti ufficiali (nordkapphallen.no, vasamuseet.se, frammuseum.no, lofotr.no, kirunalapland.se, loylyhelsinki.fi, ecc.): verifica sempre prima dell'acquisto. Cambi indicativi: 1 € ≈ 11,7 NOK ≈ 11,2 SEK ≈ 7,45 DKK ≈ 4,3 PLN.</p>
+</footer>
+
+</body>
+</html>
